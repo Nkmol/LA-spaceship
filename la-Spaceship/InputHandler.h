@@ -30,7 +30,13 @@ public:
 		KEY_SHOOT = SDLK_SPACE,
 	};
 
+	enum class events : int
+	{
+		EVENT_QUIT = SDL_QUIT
+	};
+
 	bool is_key_pressed(const keys& key) const;
+	bool is_event(const events& event) const;
 	bool poll();
 }
 ;

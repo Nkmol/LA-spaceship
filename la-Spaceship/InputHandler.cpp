@@ -7,6 +7,11 @@ bool InputHandler::is_key_pressed(const keys& key) const
 	return e_.type == SDL_KEYDOWN && e_.key.keysym.sym == static_cast<int>(key);
 }
 
+bool InputHandler::is_event(const events& event) const
+{
+	return e_.type == static_cast<int>(event);
+}
+
 bool InputHandler::poll()
 {
 	return SDL_PollEvent(&e_);
