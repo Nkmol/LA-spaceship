@@ -1,6 +1,9 @@
 //Using SDL and standard IO
 #include <SDL.h>
 #include <stdio.h>
+#include <ostream>
+#include <iostream>
+#include "InputHandler.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -37,8 +40,25 @@ int main(int argc, char *argv[]) {
 		//Update the surface
 		SDL_UpdateWindowSurface(window);
 
-		//Wait two seconds
-		SDL_Delay(2000);
+		auto running = true;
+		while (running)
+		{
+			auto& input_h = InputHandler::instance();
+
+			// Handle events
+			while (input_h.poll())
+			{
+				if(input_h.is_event(InputHandler::events::EVENT_QUIT))
+				{
+					running = false;
+				}
+
+				if (input_h.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
+				{
+					std::cout << "Moving up" << std::endl;
+				}
+			}
+		}
 	}
 
 	//Destroy window
