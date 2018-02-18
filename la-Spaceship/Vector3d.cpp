@@ -1,41 +1,41 @@
 #include "Vector3d.h"
 
 
-Vector3d::Vector3d(double _x, double _y, double _z)
+Vector3d::Vector3d(const double x, const double y, const double z)
 {
-	this->x = _x;
-	this->y = _y;
-	this->z = _z;
+	_x = x;
+	_y = y;
+	_z = z;
 }
 
-Vector3d Vector3d::operator*(double factor)
+Vector3d Vector3d::operator*(const double factor) const
 {
-	return Vector3d{ x * factor, y * factor, z * factor };
+	return Vector3d{ _x * factor, _y * factor, _z * factor };
 }
 
-Vector3d Vector3d::operator+(Vector3d & other)
+Vector3d Vector3d::operator+(Vector3d & other) const
 {
-	return Vector3d{ x * other.x, y * other.y, z * other.z };
+	return Vector3d{ _x * other._x, _y * other._y, _z * other._z };
 }
 
-Vector3d Vector3d::operator-(Vector3d & other)
+Vector3d Vector3d::operator-(Vector3d & other) const
 {
-	return Vector3d{ x - other.x, y - other.y, z - other.z };
+	return Vector3d{ _x - other._x, _y - other._y, _z - other._z };
 }
 
 double Vector3d::GetX() const
 {
-	return this->x;
+	return _x;
 }
 
 double Vector3d::GetY() const
 {
-	return this->y;
+	return _y;
 }
 
 double Vector3d::GetZ() const
 {
-	return this->z;
+	return _z;
 }
 
 std::ostream & operator<<(std::ostream & cout, Vector3d & vector)
