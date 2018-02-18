@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Datatypes">
       <UniqueIdentifier>{f0a6bf21-6ae3-4c5a-a81a-7a6d7c024f02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Matrix">
+      <UniqueIdentifier>{f3637aa2-3b83-4146-8add-b9e04233e060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Matrix">
+      <UniqueIdentifier>{34d56661-83e7-482b-b173-4b4adf81c31b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,6 +39,21 @@
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Vector2d.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3d.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix3d.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixFactory.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputHandler.h">
@@ -43,6 +64,21 @@
     </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix3d.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixFactory.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2d.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3d.h">
+      <Filter>Header Files\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

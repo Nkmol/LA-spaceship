@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{83E40516-C5A3-4E8D-811A-0036842EDB87}</ProjectGuid>
     <RootNamespace>laSpaceship</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,12 +140,22 @@
   <ItemGroup>
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Matrix3d.cpp" />
+    <ClCompile Include="MatrixFactory.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Vector2d.cpp" />
+    <ClCompile Include="Vector3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Matrix3d.h" />
+    <ClInclude Include="MatrixFactory.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Vector2d.h" />
+    <ClInclude Include="Vector3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
