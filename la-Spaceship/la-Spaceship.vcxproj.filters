@@ -39,14 +39,11 @@
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2d.cpp">
+    <ClCompile Include="MatrixFactory.cpp">
       <Filter>Source Files\Matrix</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3d.cpp">
-      <Filter>Source Files\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector4d.cpp">
-      <Filter>Source Files\Matrix</Filter>
+    <ClCompile Include="MatrixHelper.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,17 +56,14 @@
     <ClInclude Include="RenderManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2d.h">
-      <Filter>Header Files\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3d.h">
-      <Filter>Header Files\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4d.h">
-      <Filter>Header Files\Matrix</Filter>
-    </ClInclude>
     <ClInclude Include="Matrix.h">
       <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixFactory.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixHelper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

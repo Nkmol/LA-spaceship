@@ -34,14 +34,13 @@ int main(int argc, char *argv[]) {
 
 	// First multiply x then translate x
 	const auto result = scalarTranslate * scalarMultiply * rectangle;
-	
-	//const auto rotated_rectangle = helper.Rotate(360, rectangle, 150, 200, 200); TODO WIP
+	const auto rotated_rectangle = helper.Rotate(360, rectangle, 150, 200, 200);
 
 	std::cout << rectangle << std::endl << std::endl;
 	std::cout << scalarMultiply << std::endl << std::endl;
 	std::cout << scalarTranslate << std::endl << std::endl;
 	std::cout << result << std::endl;
-	//std::cout << rotated_rectangle << std::endl; TODO WIP
+	std::cout << rotated_rectangle << std::endl;
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
