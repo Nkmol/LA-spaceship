@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 		}
 	);
 
-	const Matrix<int, 4, 4> scalar(
+	const Matrix<int, 4, 4> scalarMultiply(
 		{
 			{2, 0, 0, 0},
 			{0, 1, 0, 0},
@@ -33,10 +33,21 @@ int main(int argc, char *argv[]) {
 		}
 	);
 
-	auto result = rectangle * scalar;
+	const Matrix<int, 4, 4> scalarTranslate(
+		{
+			{1, 0, 0, 10},
+			{0, 1, 0, 0},
+			{0, 0, 1, 0},
+			{0, 0, 0, 1}
+		}
+	);
+
+	// First multiply x then translate x
+	const auto result = scalarTranslate * scalarMultiply * rectangle;
 
 	std::cout << rectangle << std::endl << std::endl;
-	std::cout << scalar << std::endl << std::endl;
+	std::cout << scalarMultiply << std::endl << std::endl;
+	std::cout << scalarTranslate << std::endl << std::endl;
 	std::cout << result << std::endl;
 
 	//Initialize SDL
