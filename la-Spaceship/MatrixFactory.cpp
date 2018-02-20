@@ -53,7 +53,7 @@ Matrix<double, 4, 4> MatrixFactory::CreateRotationMatrix(double rad, const Axis 
 		return
 		{
 			{ cos(rad), sin_multiplier * -sin(rad), 0, 0 },
-			{ 0, sin_multiplier * sin(rad), cos(rad), 0 },
+			{ sin_multiplier * sin(rad), cos(rad), 0, 0 },
 			{ 0, 0, 1, 0 },
 			{ 0, 0, 0, 1 }
 		};

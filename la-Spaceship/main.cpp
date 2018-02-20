@@ -19,10 +19,10 @@ int main(int argc, char *argv[]) {
 	// init through a initalizer_list
 	const Matrix<double, 4, 4> rectangle(
 		{
-			{100, 150, 150, 150},
-			{100, 100, 200, 200},
-			{100, 200, 200, 200},
-			{1	 , 1  , 1  , 1}
+			{0,  50, 50,  0},
+			{50, 50, 50, 50},
+			{0,  0,  50, 50},
+			{1 , 1 , 1 , 1 }
 		}
 	);
 
@@ -35,13 +35,13 @@ int main(int argc, char *argv[]) {
 	// First multiply x then translate x
 	const auto result = scalarTranslate * scalarMultiply * rectangle;
 	
-	//const auto rotated_rectangle = helper.Rotate(360, rectangle, 150, 200, 200); TODO WIP
+	const auto rotated_rectangle = helper.Rotate(180, rectangle, {0, 0, 0}, {50, 0, 0}); // TODO WIP, Test after projection matrix is done
 
 	std::cout << rectangle << std::endl << std::endl;
 	std::cout << scalarMultiply << std::endl << std::endl;
 	std::cout << scalarTranslate << std::endl << std::endl;
 	std::cout << result << std::endl;
-	//std::cout << rotated_rectangle << std::endl; TODO WIP
+	std::cout << rotated_rectangle << std::endl; //TODO WIP
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
