@@ -63,8 +63,9 @@ int main(int argc, char *argv[]) {
 
 	std::cout << point1 << std::endl;
 	std::cout << point2 << std::endl;
-	// Todo to a model class
+
 	std::cout << "Dot of the 2 points = " << point1.Dot(point2) << std::endl;
+	std::cout << "Cross of the 2 points = " << std::endl << point1.Cross(point2) << std::endl;
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

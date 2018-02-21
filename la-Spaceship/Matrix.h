@@ -120,7 +120,6 @@ public:
 
 	// Additions
 	void SetRow(unsigned int row, const std::array<T, cols>& data);
-	Matrix<T, rows, cols> Cross(const Matrix<T, rows, cols>& ofMatrix) const;
 };
 
 /* Identity matrix */
@@ -170,12 +169,6 @@ MTXTMP
 void Matrix<T, rows, cols>::SetRow(unsigned int row, const std::array<T, cols>& data)
 {
 	myVal[row] = data;
-}
-
-MTXTMP
-Matrix<T, rows, cols> Matrix<T, rows, cols>::Cross(const Matrix<T, rows, cols>& ofMatrix) const
-{
-	return Matrix<T, rows, cols>();
 }
 
 /* Column getter */
