@@ -29,3 +29,4 @@ Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double
 
 	return (revert * (z_ret * (y_ret * (x_rot * (y_rot * (z_rot * translate)))))) * matrix;
 }
+

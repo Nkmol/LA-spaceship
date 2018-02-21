@@ -120,6 +120,7 @@ public:
 
 	// Additions
 	void SetRow(unsigned int row, const std::array<T, cols>& data);
+	T Dot(const Matrix<T, rows, cols>& ofMatrix) const;
 };
 
 /* Identity matrix */
@@ -169,6 +170,20 @@ MTXTMP
 void Matrix<T, rows, cols>::SetRow(unsigned int row, const std::array<T, cols>& data)
 {
 	myVal[row] = data;
+}
+
+MTXTMP
+T Matrix<T, rows, cols>::Dot(const Matrix<T, rows, cols>& ofMatrix) const
+{
+	T result {};
+	for (unsigned int row = 0; row < rows; row++)
+	{
+		for(unsigned int col = 0; col < cols; col++) {
+			result += Getval(row, col) * ofMatrix.Getval(row, col);
+		}
+	}
+
+	return result;
 }
 
 /* Column getter */
@@ -514,12 +529,11 @@ bool Matrix<T, rows, cols>::IsDiagonal() const
 MTXTMP
 std::ostream& operator<<(std::ostream& cout, const Matrix<T, rows, cols>& matrix)
 {
-	for (unsigned int i = 0; i < cols; ++i)
+	for (unsigned int row = 0; row < rows; ++row)
 	{
-		auto row = matrix.Getrow(i);
-		for (auto data : row)
+		for(unsigned int col = 0; col < cols; ++col)
 		{
-			cout << std::setw(4) << data << " ";
+			cout << std::setw(4) << matrix.Getval(row, col) << " ";
 		}
 		cout << std::endl;
 	}
