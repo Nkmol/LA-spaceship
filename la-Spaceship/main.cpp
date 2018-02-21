@@ -5,9 +5,9 @@
 
 #include "InputHandler.h"
 #include "RenderManager.h"
-#include "Matrix.h"
 #include "MatrixFactory.h"
 #include "MatrixHelper.h"
+#include "Matrix3D.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 	//std::cout << rotated_rectangle << std::endl; //TODO WIP
 
 	//Inproduct
-	const Matrix<double, 4, 1> point1(
+	const Matrix3D<double, 1> point1(
 		{
 			{5},
 			{5},
@@ -52,8 +52,7 @@ int main(int argc, char *argv[]) {
 			{1}
 		}
 	);
-
-	const Matrix<double, 4, 1> point2(
+	const Matrix3D<double, 1> point2(
 		{
 			{5},
 			{5},
@@ -65,7 +64,7 @@ int main(int argc, char *argv[]) {
 	std::cout << point1 << std::endl;
 	std::cout << point2 << std::endl;
 	// Todo to a model class
-	std::cout << "Dot of the 2 points = " << point1.Dot(point2) - point1.Getval(3, 0)*point2.Getval(3, 0) << std::endl;
+	std::cout << "Dot of the 2 points = " << point1.Dot(point2) << std::endl;
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

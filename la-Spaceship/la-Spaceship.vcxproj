@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="MatrixFactory.h" />
     <ClInclude Include="MatrixHelper.h" />
     <ClInclude Include="RenderManager.h" />
