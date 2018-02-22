@@ -176,7 +176,7 @@ MTXTMP
 std::array<T, rows> Matrix<T, rows, cols>::Getcol(unsigned int col) const
 {
 	std::array<T, rows> ans;
-	for (unsigned int i = 0; i < cols; i++)
+	for (unsigned int i = 0; i < rows; i++)
 		ans[i] = myVal[i][col];
 	return ans;
 }
@@ -514,12 +514,11 @@ bool Matrix<T, rows, cols>::IsDiagonal() const
 MTXTMP
 std::ostream& operator<<(std::ostream& cout, const Matrix<T, rows, cols>& matrix)
 {
-	for (unsigned int i = 0; i < cols; ++i)
+	for (unsigned int row = 0; row < rows; ++row)
 	{
-		auto row = matrix.Getrow(i);
-		for (auto data : row)
+		for(unsigned int col = 0; col < cols; ++col)
 		{
-			cout << std::setw(4) << data << " ";
+			cout << std::setw(4) << matrix.Getval(row, col) << " ";
 		}
 		cout << std::endl;
 	}

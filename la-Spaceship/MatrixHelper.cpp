@@ -45,3 +45,4 @@ Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double
 
 	return result;
 }
+
