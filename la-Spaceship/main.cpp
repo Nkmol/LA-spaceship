@@ -8,6 +8,7 @@
 #include "MatrixFactory.h"
 #include "MatrixHelper.h"
 #include "Matrix3D.h"
+#include "Object.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -25,6 +26,19 @@ int main(int argc, char *argv[]) {
 			{1 , 1 , 1 , 1 }
 		}
 	);
+
+	Object test_object;
+
+	test_object.SetTransform({ 
+		{100, 100, 0}, 
+		{100, 150, 0}, 
+		{150, 150, 0}, 
+		{150, 100, 0} 
+	});
+
+	auto m = test_object.ToMatrix<4>();
+	test_object.FromMatrix(m);
+
 
 	MatrixFactory factory;
 	MatrixHelper helper;
@@ -78,6 +92,9 @@ int main(int argc, char *argv[]) {
 		SDL_PumpEvents();
 		RenderManager::GetInstance().CreateWindow(TITLE, false, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+		// TODO for testing
+		double scale = 1.0001;
+
 		auto running = true;
 		while (running)
 		{
@@ -96,6 +113,21 @@ int main(int argc, char *argv[]) {
 					std::cout << "Moving up" << std::endl;
 				}
 			}
+
+
+
+			RenderManager::GetInstance().Clear();
+			test_object.Draw();
+			RenderManager::GetInstance().Refresh();
+
+			const auto scale_matrix = factory.CreateScaleMatrix(scale, scale, scale);
+			const auto m = test_object.ToMatrix<4>();
+
+			const auto r = scale_matrix * m; // TODO translation (it is still just a test though)
+
+			test_object.FromMatrix(
+				r
+			);
 		}
 	}
 
