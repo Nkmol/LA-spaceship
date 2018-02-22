@@ -5,9 +5,9 @@
 
 #include "InputHandler.h"
 #include "RenderManager.h"
-#include "Matrix.h"
 #include "MatrixFactory.h"
 #include "MatrixHelper.h"
+#include "Matrix3D.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -37,11 +37,36 @@ int main(int argc, char *argv[]) {
 	
 	const auto rotated_rectangle = helper.Rotate(180, rectangle, {0, 0, 0}, {50, 0, 0}); // TODO WIP, Test after projection matrix is done
 
-	std::cout << rectangle << std::endl << std::endl;
-	std::cout << scalarMultiply << std::endl << std::endl;
-	std::cout << scalarTranslate << std::endl << std::endl;
-	std::cout << result << std::endl;
-	std::cout << rotated_rectangle << std::endl; //TODO WIP
+	//std::cout << rectangle << std::endl << std::endl;
+	//std::cout << scalarMultiply << std::endl << std::endl;
+	//std::cout << scalarTranslate << std::endl << std::endl;
+	//std::cout << result << std::endl;
+	//std::cout << rotated_rectangle << std::endl; //TODO WIP
+
+	//Inproduct
+	const Matrix3D<double, 1> point1(
+		{
+			{5},
+			{5},
+			{5},
+			{1}
+		}
+	);
+	const Matrix3D<double, 1> point2(
+		{
+			{7},
+			{7},
+			{7},
+			{1}
+		}
+	);
+
+	std::cout << point1 << std::endl;
+	std::cout << point2 << std::endl;
+
+	std::cout << "Dot of the 2 points = " << point1.Dot(point2) << std::endl;
+	std::cout << "Cross of the 2 points = " << std::endl << point1.Cross(point2) << std::endl;
+	std::cout << "Normalized point 1 = " << std::endl << point1.Normalize() << std::endl;
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
