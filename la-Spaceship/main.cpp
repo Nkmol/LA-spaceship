@@ -54,9 +54,9 @@ int main(int argc, char *argv[]) {
 	);
 	const Matrix3D<double, 1> point2(
 		{
-			{5},
-			{5},
-			{5},
+			{7},
+			{7},
+			{7},
 			{1}
 		}
 	);
@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
 
 	std::cout << "Dot of the 2 points = " << point1.Dot(point2) << std::endl;
 	std::cout << "Cross of the 2 points = " << std::endl << point1.Cross(point2) << std::endl;
+	std::cout << "Normalized point 1 = " << std::endl << point1.Normalize() << std::endl;
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

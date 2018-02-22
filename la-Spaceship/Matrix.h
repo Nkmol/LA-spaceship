@@ -176,7 +176,7 @@ MTXTMP
 std::array<T, rows> Matrix<T, rows, cols>::Getcol(unsigned int col) const
 {
 	std::array<T, rows> ans;
-	for (unsigned int i = 0; i < cols; i++)
+	for (unsigned int i = 0; i < rows; i++)
 		ans[i] = myVal[i][col];
 	return ans;
 }
