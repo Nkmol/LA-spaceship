@@ -15,3 +15,21 @@ void RenderManager::CreateWindow(const std::string& title, bool fullscreen, cons
 	}
 	SDL_SetWindowTitle(this->_window, title.c_str());
 }
+
+void RenderManager::Draw(const Vector2d<double>& begin, const Vector2d<double>& end)
+{
+	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawLine(this->_renderer, begin.GetX(), begin.GetY(), end.GetX(), end.GetY());
+}
+
+void RenderManager::Refresh()
+{
+	SDL_RenderPresent(_renderer);
+}
+
+
+void RenderManager::Clear()
+{
+	SDL_SetRenderDrawColor(_renderer, 0xff, 0xff, 0xff, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(_renderer);
+}

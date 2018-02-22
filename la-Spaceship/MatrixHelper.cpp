@@ -4,7 +4,10 @@ Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double
 	std::vector<double> edge_begin, std::vector<double> edge_end)
 {
 	MatrixFactory factory;
-	
+	int width = 4;
+	int height = 4;
+
+
 	const double x_translate = -edge_begin[0];
 	const double y_translate = -edge_begin[1];
 	const double z_translate = -edge_begin[2];
@@ -27,5 +30,18 @@ Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double
 	const auto y_ret = factory.CreateRotationMatrix(-t2, Y, false); // Rotate Y edge back
 	const auto z_ret = factory.CreateRotationMatrix(-t1, Z, false); // Rotate Z edge back
 
-	return (revert * (z_ret * (y_ret * (x_rot * (y_rot * (z_rot * translate)))))) * matrix;
+	auto result = (revert * (z_ret * (y_ret * (x_rot * (y_rot * (z_rot * translate)))))) * matrix;
+
+
+	// When the matrix is rotated, some values may be very close to zero (due to cos / sin)
+	// To fix this the value is rounded down when there are a lot decimals.
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			result.Setval(y, x, floor(result.Getval(y, x) * 1000000) / 1000000);
+		}
+	}
+
+	return result;
 }
