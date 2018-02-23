@@ -24,7 +24,7 @@ public:
 	Matrix3D<T, cols> operator-() const;
 	Matrix3D<T, cols> operator*(const T operand) const;
 	template <unsigned int opcols>
-	Matrix3D<T, cols> operator*(const Matrix3D<T, cols>& operand) const;
+	Matrix3D<T, cols> operator*(const Matrix3D<T, opcols>& operand) const;
 };
 
 MTXTMP3D
@@ -83,7 +83,9 @@ Matrix3D<T, cols> Matrix3D<T, cols>::Normalize() const
 		auto length = vector.Length();
 
 		for (unsigned int row = 0; row < 4 - 1; row++) {
-			result.Setval(row, col, vector.Getval(row, col) / length);
+			T normalized = vector.Getval(row, col) / length;
+			
+			result.Setval(row, col, normalized);
 		}
 	}
 
@@ -143,7 +145,7 @@ Matrix3D<T, cols> Matrix3D<T, cols>::operator*(const T operand) const
 /* Matrix multiplication */
 MTXTMP3D
 template <unsigned int opcols>
-Matrix3D<T, cols> Matrix3D<T, cols>::operator*(const Matrix3D<T, cols>& operand) const
+Matrix3D<T, cols> Matrix3D<T, cols>::operator*(const Matrix3D<T, opcols>& operand) const
 {
 	Matrix3D<T, cols> ans {};
 	for (unsigned int i = 0; i < 4; i++)

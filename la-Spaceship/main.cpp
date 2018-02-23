@@ -9,6 +9,7 @@
 #include "MatrixHelper.h"
 #include "Matrix3D.h"
 #include "Object.h"
+#include "Camera.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -81,6 +82,27 @@ int main(int argc, char *argv[]) {
 	std::cout << "Dot of the 2 points = " << point1.Dot(point2) << std::endl;
 	std::cout << "Cross of the 2 points = " << std::endl << point1.Cross(point2) << std::endl;
 	std::cout << "Normalized point 1 = " << std::endl << point1.Normalize() << std::endl;
+
+	Camera camera { 
+		{
+			{50},
+			{50},
+			{50},
+			{1}
+		},
+		{
+			{0},
+			{0},
+			{0},
+			{1}
+		},
+		{
+			{0},
+			{1},
+			{0},
+			{1}
+		}
+	};
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

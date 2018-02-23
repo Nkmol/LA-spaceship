@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatrixFactory.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="RenderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Matrix3D.h" />
