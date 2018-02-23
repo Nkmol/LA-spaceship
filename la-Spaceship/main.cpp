@@ -7,7 +7,7 @@
 #include "RenderManager.h"
 #include "MatrixFactory.h"
 #include "MatrixHelper.h"
-#include "Matrix3D.h"
+#include "Matrix.h"
 #include "Object.h"
 #include "Camera.h"
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
 	//std::cout << rotated_rectangle << std::endl; //TODO WIP
 
 	//Inproduct
-	const Matrix3D<double, 1> point1(
+	const Matrix<double, 4, 1> point1(
 		{
 			{5},
 			{5},
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 			{1}
 		}
 	);
-	const Matrix3D<double, 1> point2(
+	const Matrix<double, 4, 1> point2(
 		{
 			{7},
 			{7},
@@ -79,9 +79,9 @@ int main(int argc, char *argv[]) {
 	std::cout << point1 << std::endl;
 	std::cout << point2 << std::endl;
 
-	std::cout << "Dot of the 2 points = " << point1.Dot(point2) << std::endl;
-	std::cout << "Cross of the 2 points = " << std::endl << point1.Cross(point2) << std::endl;
-	std::cout << "Normalized point 1 = " << std::endl << point1.Normalize() << std::endl;
+	std::cout << "Dot of the 2 points = " << helper.Dot(point1, point2) << std::endl;
+	std::cout << "Cross of the 2 points = " << std::endl << helper.Cross(point1, point2) << std::endl;
+	std::cout << "Normalized point 1 = " << std::endl << helper.Normalize(point1) << std::endl;
 
 	Camera camera { 
 		{

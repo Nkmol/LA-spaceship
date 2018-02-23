@@ -523,7 +523,7 @@ std::ostream& operator<<(std::ostream& cout, const Matrix<T, rows, cols>& matrix
 	{
 		for(unsigned int col = 0; col < cols; ++col)
 		{
-			cout << std::setw(4) << matrix.Getval(row, col) << " ";
+			cout << std::setw(10) << matrix.Getval(row, col) << " ";
 		}
 		cout << std::endl;
 	}

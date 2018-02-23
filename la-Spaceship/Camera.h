@@ -1,13 +1,13 @@
 #pragma once
-#include "Matrix3D.h"
+#include "Matrix.h"
 
 class Camera
 {
 private:
-	Matrix3D<double, 1> _eye, _lookat, _up;
+	Matrix<double, 4, 1> _eye, _lookat, _up;
 
 public:
-	Camera(const Matrix3D<double, 1>& eye, const Matrix3D<double, 1>& lookat, const Matrix3D<double, 1>& up);
+	Camera(const Matrix<double, 4, 1>& eye, const Matrix<double, 4, 1>& lookat, const Matrix<double, 4, 1>& up);
 
 };
 
