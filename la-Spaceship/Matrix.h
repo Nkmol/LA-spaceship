@@ -1,5 +1,4 @@
 ///mostly based on https://gist.github.com/MihailJP/3937550
-// Extended with AddRow, cout support
 
 #ifndef MATRIX_H
 #define MATRIX_H
@@ -14,8 +13,10 @@
 MTXTMP
 class Matrix
 {
-private:
+protected:
 	std::array<std::array<T, cols>, rows> myVal;
+
+private:
 
 	template <typename T_, unsigned int rows_, unsigned int cols_>
 	struct calc_det
@@ -118,6 +119,7 @@ public:
 	bool IsTriangular() const;
 	bool IsDiagonal() const;
 
+	virtual ~Matrix();
 	// Additions
 	void SetRow(unsigned int row, const std::array<T, cols>& data);
 };
@@ -133,6 +135,9 @@ Matrix<T, size, size> Identity()
 			e.setval(i, j, i == j ? 1 : 0);
 	return e;
 }
+
+MTXTMP
+Matrix<T, rows, cols>::~Matrix() = default;
 
 /* Default constructor */
 MTXTMP
@@ -202,7 +207,7 @@ Matrix<T, cols, rows> Matrix<T, rows, cols>::Transpose() const
 	Matrix<T, cols, rows> ans;
 	for (unsigned int i = 0; i < cols; i++)
 		for (unsigned int j = 0; j < rows; j++)
-			ans[i][j] = myVal[j][i];
+			ans.Setval(i, j, myVal[j][i]);
 	return ans;
 }
 
@@ -518,7 +523,7 @@ std::ostream& operator<<(std::ostream& cout, const Matrix<T, rows, cols>& matrix
 	{
 		for(unsigned int col = 0; col < cols; ++col)
 		{
-			cout << std::setw(4) << matrix.Getval(row, col) << " ";
+			cout << std::setw(10) << matrix.Getval(row, col) << " ";
 		}
 		cout << std::endl;
 	}
