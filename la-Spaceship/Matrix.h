@@ -207,7 +207,7 @@ Matrix<T, cols, rows> Matrix<T, rows, cols>::Transpose() const
 	Matrix<T, cols, rows> ans;
 	for (unsigned int i = 0; i < cols; i++)
 		for (unsigned int j = 0; j < rows; j++)
-			ans[i][j] = myVal[j][i];
+			ans.Setval(i, j, myVal[j][i]);
 	return ans;
 }
 
