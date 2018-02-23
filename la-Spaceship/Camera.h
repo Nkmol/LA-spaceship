@@ -8,6 +8,7 @@ private:
 
 public:
 	Camera(const Matrix<double, 4, 1>& eye, const Matrix<double, 4, 1>& lookat, const Matrix<double, 4, 1>& up);
+	Matrix<double, 4, 4> ToMatrix();
 
 };
 

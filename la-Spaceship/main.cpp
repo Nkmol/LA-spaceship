@@ -21,9 +21,9 @@ int main(int argc, char *argv[]) {
 	// init through a initalizer_list
 	const Matrix<double, 4, 4> rectangle(
 		{
-			{0,  50, 50,  0},
-			{50, 50, 50, 50},
-			{0,  0,  50, 50},
+			{100,  150, 150,  100},
+			{150, 150, 150, 150},
+			{100,  100,  150, 150},
 			{1 , 1 , 1 , 1 }
 		}
 	);
@@ -85,15 +85,15 @@ int main(int argc, char *argv[]) {
 
 	Camera camera { 
 		{
-			{50},
-			{50},
-			{50},
+			{0},
+			{0},
+			{0},
 			{1}
 		},
 		{
+			{250},
 			{0},
-			{0},
-			{0},
+			{250},
 			{1}
 		},
 		{
@@ -107,8 +107,8 @@ int main(int argc, char *argv[]) {
 
 	// Projectionmatrix
 	Vector3d<double> test_camera_position{ 0, 125, 0 };
-	double near = 25; // Afstand van het camera-object tot het begin van je camerabeeld.
-	double far = 250; // Het limiet van je camerabeeld.
+	double near = 1; // Afstand van het camera-object tot het begin van je camerabeeld.
+	double far = 249; // Het limiet van je camerabeeld.
 	double field_of_view = factory.AngleToRadian(90); // De hoek van het camerabeeld (meestal standaard 90 graden)
 	double scale = near * tan(field_of_view * 0.5); // TODO check op afronding naar 0??
 	double help_calculation_a = -far / (far - near);
@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
 
 	// Berekening
 	const auto target_object = test_object.ToMatrix<4>();
-	const auto projected_matrix = projection_matrix * target_object;
+	const auto projected_matrix = projection_matrix * camera.ToMatrix() * rectangle;
 
 	std::cout << target_object << std::endl << projected_matrix << std::endl;
 	std::cout << test << std::endl;
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
 
 		adjusted_projected_matrix.Setval(0, i, new_x);
 		adjusted_projected_matrix.Setval(1, i, new_y);
-		//adjusted_projected_matrix.Setval(2, i, x);
+		adjusted_projected_matrix.Setval(2, i, -projected_matrix.Getval(2, i));
 	}
 
 	std::cout << adjusted_projected_matrix << std::endl;
@@ -202,7 +202,7 @@ int main(int argc, char *argv[]) {
 			const auto r = scale_matrix * m; // TODO translation (it is still just a test though)
 
 			test_object.FromMatrix(
-				r
+				adjusted_projected_matrix
 			);
 		}
 	}
