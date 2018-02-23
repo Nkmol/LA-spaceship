@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Matrix.h"
-#include <math.h>       /* sqrt */
 
 // A specific implementation of the Matrix
 
@@ -17,6 +16,15 @@ public:
 	T Length() const;
 	Matrix3D<T, cols> Normalize() const;
 	Matrix3D<T, cols> Cross(const Matrix3D<T, cols>& ofMatrix) const;
+	
+	// TODO Should be a way to reuse the base operators, as they all use the same underlying datatype of "myval"
+	// TODO Best with exposing through inheritance, second best is proxy to Base
+	Matrix3D<T, cols> operator-(const Matrix3D<T, cols>& operand) const;
+	Matrix3D<T, cols> operator+(const Matrix3D<T, cols>& operand) const;
+	Matrix3D<T, cols> operator-() const;
+	Matrix3D<T, cols> operator*(const T operand) const;
+	template <unsigned int opcols>
+	Matrix3D<T, cols> operator*(const Matrix3D<T, cols>& operand) const;
 };
 
 MTXTMP3D
@@ -98,3 +106,53 @@ Matrix3D<T, cols> Matrix3D<T, cols>::Cross(const Matrix3D<T, cols>& ofMatrix) co
 	);
 }
 
+MTXTMP3D
+Matrix3D<T, cols> Matrix3D<T, cols>::operator-(const Matrix3D<T, cols>& operand) const
+{
+	return (*this) + (-operand);
+}
+
+MTXTMP3D
+Matrix3D<T, cols> Matrix3D<T, cols>::operator+(const Matrix3D<T, cols>& operand) const
+{
+	Matrix3D<T, cols> ans {};
+	for (unsigned int i = 0; i < 4; i++)
+		for (unsigned int j = 0; j < cols; j++)
+			ans.myVal[i][j] = Base::myVal[i][j] + operand.myVal[i][j];
+	return ans;
+}
+
+/* Negation */
+MTXTMP3D
+Matrix3D<T, cols> Matrix3D<T, cols>::operator-() const
+{
+	return (*this) * static_cast<T>(-1);
+}
+
+/* Scalar multiplication */
+MTXTMP3D
+Matrix3D<T, cols> Matrix3D<T, cols>::operator*(const T operand) const
+{
+	Matrix3D<T, cols> ans {};
+	for (unsigned int i = 0; i < 4; i++)
+		for (unsigned int j = 0; j < cols; j++)
+			ans.myVal[i][j] = Base::myVal[i][j] * operand;
+	return ans;
+}
+
+/* Matrix multiplication */
+MTXTMP3D
+template <unsigned int opcols>
+Matrix3D<T, cols> Matrix3D<T, cols>::operator*(const Matrix3D<T, cols>& operand) const
+{
+	Matrix3D<T, cols> ans {};
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		for (unsigned int j = 0; j < opcols; j++)
+		{
+			for (unsigned int k = 0; k < cols; k++)
+				ans.Setval(i, j, ans.Getval(i, j) + this->Getval(i, k) * operand.Getval(k, j));
+		}
+	}
+	return ans;
+}
