@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixFactory.h" />
