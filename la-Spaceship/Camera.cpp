@@ -38,9 +38,9 @@ Matrix<double, 4, 4> Camera::CalculateMatrix() const
 
 	Matrix<double, 4, 4> camera(
 		{
-			{x.Getval(0, 0), x.Getval(1, 0), x.Getval(2, 0), -helper.Dot(x, _eye)},
-			{y.Getval(0, 0), y.Getval(1, 0), y.Getval(2, 0), -helper.Dot(y, _eye)},
-			{z.Getval(0, 0), z.Getval(1, 0), z.Getval(2, 0), -helper.Dot(z, _eye)},
+			{x.GetVal(0, 0), x.GetVal(1, 0), x.GetVal(2, 0), -helper.Dot(x, _eye)},
+			{y.GetVal(0, 0), y.GetVal(1, 0), y.GetVal(2, 0), -helper.Dot(y, _eye)},
+			{z.GetVal(0, 0), z.GetVal(1, 0), z.GetVal(2, 0), -helper.Dot(z, _eye)},
 			{0, 0, 0, 1},
 		}
 	);

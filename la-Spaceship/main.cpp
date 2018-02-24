@@ -87,9 +87,6 @@ int main(int argc, char *argv[]) {
 	Object left_wing_object;
 	Object right_wing_object;
 
-	auto m = test_object.ToMatrix<4>();
-	test_object.FromMatrix(m);
-
 	MatrixFactory factory;
 	MatrixHelper helper;
 	
@@ -168,16 +165,16 @@ int main(int argc, char *argv[]) {
 						double collective_y = 0;
 						double collective_z = 0;
 
-						for (int i = 0; i < body.Getrow(0).size(); i++)
+						for (int i = 0; i < body.GetRow(0).size(); i++)
 						{
-							collective_x += body.Getval(0, i);
-							collective_y += body.Getval(1, i);
-							collective_z += body.Getval(2, 1);
+							collective_x += body.GetVal(0, i);
+							collective_y += body.GetVal(1, i);
+							collective_z += body.GetVal(2, 1);
 						}
 
-						center_x = collective_x / body.Getrow(0).size();
-						center_y = collective_y / body.Getrow(1).size();
-						center_z = collective_z / body.Getrow(2).size();
+						center_x = collective_x / body.GetRow(0).size();
+						center_y = collective_y / body.GetRow(1).size();
+						center_z = collective_z / body.GetRow(2).size();
 					}
 					catch(...)
 					{
@@ -222,31 +219,31 @@ int main(int argc, char *argv[]) {
 			const auto projected_right_wing = camera.ProjectMatrix(right_wing);
 
 
-			test_object.FromMatrix(
+			test_object.SetTransform(
 				projectedMatrix
 			);
 
-			source_object.FromMatrix(
+			source_object.SetTransform(
 				projected_source_edges
 			);
 
-			engine_object.FromMatrix(
+			engine_object.SetTransform(
 				projected_engine
 			);
 
-			body_object.FromMatrix(
+			body_object.SetTransform(
 				projected_body
 			);
 
-			head_object.FromMatrix(
+			head_object.SetTransform(
 				projected_head
 			);
 
-			left_wing_object.FromMatrix(
+			left_wing_object.SetTransform(
 				projected_left_wing
 			);
 
-			right_wing_object.FromMatrix(
+			right_wing_object.SetTransform(
 				projected_right_wing
 			);
 
