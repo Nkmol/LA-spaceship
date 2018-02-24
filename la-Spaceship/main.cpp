@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 		}
 	};
 
-	auto projected_matrix = camera.ProjectMatrix(cube);
+	const auto projectedMatrix = camera.ProjectMatrix(cube);
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -64,40 +64,32 @@ int main(int argc, char *argv[]) {
 		SDL_PumpEvents();
 		RenderManager::GetInstance().CreateWindow(Config::TITLE, false, Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT);
 
-		// TODO for testing
-		double scale = 1.0001;
-
 		auto running = true;
 		while (running)
 		{
-			auto& input_h = InputHandler::instance();
+			auto& inputHandler = InputHandler::instance();
 
 			// Handle events
-			while (input_h.poll())
+			while (inputHandler.poll())
 			{
-				if(input_h.is_event(InputHandler::events::EVENT_QUIT))
+				if(inputHandler.is_event(InputHandler::events::EVENT_QUIT))
 				{
 					running = false;
 				}
 
-				if (input_h.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
+				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
 				{
 					std::cout << "Moving up" << std::endl;
 				}
 			}
 
+			test_object.FromMatrix(
+				projectedMatrix
+			);
+
 			RenderManager::GetInstance().Clear();
 			test_object.Draw();
 			RenderManager::GetInstance().Refresh();
-
-			const auto scale_matrix = factory.CreateScaleMatrix(scale, scale, scale);
-			const auto m = test_object.ToMatrix<4>();
-
-			const auto r = scale_matrix * m; // TODO translation (it is still just a test though)
-
-			test_object.FromMatrix(
-				projected_matrix
-			);
 		}
 	}
 

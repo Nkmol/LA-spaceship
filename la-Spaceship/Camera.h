@@ -1,39 +1,38 @@
 #pragma once
+#include "Config.h"
 #include "Matrix.h"
 #include "MatrixFactory.h"
-#include "Config.h"
 
 class Camera
 {
 private:
 	Matrix<double, 4, 1> _eye, _lookat, _up;
 
-	template<unsigned int cols>
+	template <unsigned int cols>
 	Matrix<double, 4, cols> FixCalculation(Matrix<double, 4, cols> projectedMatrix);
 public:
 	Camera(const Matrix<double, 4, 1>& eye, const Matrix<double, 4, 1>& lookat, const Matrix<double, 4, 1>& up);
-	Matrix<double, 4, 4> CalculateMatrix();
+	Matrix<double, 4, 4> CalculateMatrix() const;
 
-	template<unsigned int cols>
+	template <unsigned int cols>
 	Matrix<double, 4, cols> ProjectMatrix(Matrix<double, 4, cols> obj);
-
 };
 
-template<unsigned int cols>
+template <unsigned int cols>
 Matrix<double, 4, cols> Camera::FixCalculation(Matrix<double, 4, cols> projectedMatrix)
 {
-		// Naberekening (aangezien hulprij w niet meer 1 is)
-	Matrix<double, 4, 16> adjustedProjectedMatrix {};
+	// Naberekening (aangezien hulprij w niet meer 1 is)
+	Matrix<double, 4, 16> adjustedProjectedMatrix{};
 
 	for (int i = 0; i < 16; i++)
 	{
 		const double screen_size = 420;
 		const double x = projectedMatrix.Getval(0, i);
 		const double w = projectedMatrix.Getval(3, i);
-		const double new_x = (screen_size / 2) + (((x + 1) / w) * screen_size * 0.5);
+		const double new_x = screen_size / 2 + (x + 1) / w * screen_size * 0.5;
 
 		const double y = projectedMatrix.Getval(1, i);
-		const double new_y = (screen_size / 2) + (((y + 1) / w) * screen_size * 0.5);
+		const double new_y = screen_size / 2 + (y + 1) / w * screen_size * 0.5;
 
 		adjustedProjectedMatrix.Setval(0, i, new_x);
 		adjustedProjectedMatrix.Setval(1, i, new_y);
@@ -43,7 +42,7 @@ Matrix<double, 4, cols> Camera::FixCalculation(Matrix<double, 4, cols> projected
 	return adjustedProjectedMatrix;
 }
 
-template<unsigned int cols>
+template <unsigned int cols>
 Matrix<double, 4, cols> Camera::ProjectMatrix(Matrix<double, 4, cols> obj)
 {
 	MatrixFactory factory;
@@ -52,25 +51,25 @@ Matrix<double, 4, cols> Camera::ProjectMatrix(Matrix<double, 4, cols> obj)
 	const auto near = 1; // Afstand van het camera-object tot het begin van je camerabeeld.
 	const auto far = 249; // Het limiet van je camerabeeld.
 	const auto fieldOfView = factory.AngleToRadian(90); // De hoek van het camerabeeld (meestal standaard 90 graden)
-	const double scale = near * tan(fieldOfView * 0.5); // TODO check op afronding naar 0??
+	const double scale = near * tan(fieldOfView * 0.5); // TODO(Sander Mol): check op afronding naar 0??
 	const double helpCalculationA = -far / (far - near);
-	const double helpCalculationB = (-far * near) / (far - near);
-	
+	const double helpCalculationB = -far * near / (far - near);
+
 	// Create the projection matrix
 	const Matrix<double, 4, 4> projectionMatrix
 	{
-		{ scale, 0, 0, 0 },
-		{ 0, scale, 0, 0 },
-		{ 0, 0, helpCalculationA, -1 },
-		{ 0, 0, helpCalculationB, 0 }
+		{scale, 0, 0, 0},
+		{0, scale, 0, 0},
+		{0, 0, helpCalculationA, -1},
+		{0, 0, helpCalculationB, 0}
 	};
 
-	Matrix<double, 4, 1> project_matrix { 
-		{static_cast<double>(Config::SCREEN_WIDTH)}, 
-		{static_cast<double>(Config::SCREEN_HEIGHT)}, 
-		{0}, 
-		{1} 
+	Matrix<double, 4, 1> project_matrix{
+		{static_cast<double>(Config::SCREEN_WIDTH)},
+		{static_cast<double>(Config::SCREEN_HEIGHT)},
+		{0},
+		{1}
 	};
-	
+
 	return FixCalculation(projectionMatrix * CalculateMatrix() * obj);
 }
