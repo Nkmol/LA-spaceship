@@ -105,29 +105,6 @@ int main(int argc, char *argv[]) {
 				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_RIGHT_MOVE))
 				{
 					std::cout << "Moving right" << std::endl;
-
-				/*	try
-					{
-						double collective_x = 0;
-						double collective_y = 0;
-						double collective_z = 0;
-
-						for (int i = 0; i < cube.GetRow(0).size(); i++)
-						{
-							collective_x += cube.GetVal(0, i);
-							collective_y += cube.GetVal(1, i);
-							collective_z += cube.GetVal(2, 1);
-						}
-
-						double center_x = collective_x / cube.GetRow(0).size();
-						double center_y = collective_y / cube.GetRow(1).size();
-						double center_z = collective_z / cube.GetRow(2).size();
-					}
-					catch(...)
-					{
-						
-					}
-*/
 					cube = factory.CreateTranslationMatrix(1, 0, 0) * cube;
 				}
 
@@ -156,8 +133,13 @@ int main(int argc, char *argv[]) {
 
 			RenderManager::GetInstance().Clear();
 			//testObject.Update();
+
+			/// Draw the object
+			// 1. First add projection to the object
 			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<4>(testObject.GetPoints()));
+			// 2. Send the points + lines to the renderManager
 			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), testObject.GetLines());
+
 			//RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject._lines);
 			RenderManager::GetInstance().Refresh();
 
