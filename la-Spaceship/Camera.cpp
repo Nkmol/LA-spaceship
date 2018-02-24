@@ -1,4 +1,4 @@
-s#include "Camera.h"
+#include "Camera.h"
 #include "MatrixHelper.h"
 
 Camera::Camera(const Matrix<double, 4, 1>& eye, const Matrix<double, 4, 1>& lookat,

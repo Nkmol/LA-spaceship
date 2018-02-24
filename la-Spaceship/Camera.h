@@ -1,4 +1,4 @@
-s#pragma once
+#pragma once
 #include "Config.h"
 #include "Matrix.h"
 #include "MatrixFactory.h"
