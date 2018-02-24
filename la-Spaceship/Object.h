@@ -9,8 +9,20 @@ class Object
 {
 private:
 	std::vector<Vector3d<double> >  _points;
+	std::vector<std::pair<unsigned int, unsigned int>> _lines;
+
 	// TODO matrix named _transform, currently unable due to matrix requiring a template.
 public:
+	const std::vector<std::pair<unsigned int, unsigned int>>& GetLines() const
+	{
+		return _lines;
+	}
+
+	void SetLines(const std::vector<std::pair<unsigned int, unsigned int>>& lines)
+	{
+		_lines = lines;
+	}
+
 	const std::vector<Vector3d<double>>& GetPoints() const
 	{
 		return _points;

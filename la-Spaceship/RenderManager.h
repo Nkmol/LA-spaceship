@@ -19,7 +19,7 @@ public:
 	}
 
 	void Draw(const Vector2d<double>& begin, const Vector2d<double>& end);
-	void DrawPoints(const std::vector<Vector3d<double>>& points);
+	void DrawPoints(const std::vector<Vector3d<double>>& points, const std::vector<std::pair<unsigned, unsigned>>& lines);
 	void Refresh();
 	void Clear();
 

@@ -24,26 +24,18 @@ void RenderManager::Draw(const Vector2d<double>& begin, const Vector2d<double>& 
 	SDL_RenderDrawLine(this->_renderer, begin.GetX(), begin.GetY(), end.GetX(), end.GetY());
 }
 
-void RenderManager::DrawPoints(const std::vector<Vector3d<double>>& points)
+void RenderManager::DrawPoints(const std::vector<Vector3d<double>>& points, const std::vector<std::pair<unsigned int, unsigned int>>& lines)
 {
-	for (auto begin = points.begin(); begin < points.end(); ++begin)
-		{
-			auto end = begin;
-			
-			if (begin == points.end() - 1)
-			{
-				end = points.begin();
-			}
-			else
-			{
-				end++;
-			}
+	for (auto& line : lines)
+	{
+		auto& point1 = points[line.first];
+		auto& point2 = points[line.second];
 
-			Draw(
-				{ (*begin).GetX(), (*begin).GetY() }, 
-				{ (*end).GetX(), (*end).GetY() }
-			);
-		}
+		Draw(
+			{ point1.GetX(), point1.GetY() }, 
+			{ point2.GetX(), point2.GetY() }
+		);
+	}
 }
 
 void RenderManager::Refresh()

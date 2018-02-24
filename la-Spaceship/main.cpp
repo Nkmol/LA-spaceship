@@ -14,23 +14,31 @@
 
 #undef main
 int main(int argc, char *argv[]) {
-	// init through a initalizer_list
-	const Matrix<double, 4, 16> cube(
-        {
-            {100, 150, 150, 150, 150, 100, 100, 100, 100, 100, 150, 150, 150, 150, 100, 100},
-            {100, 100, 100, 100, 150, 150, 150, 150, 100, 100, 100, 150, 150, 150, 150, 100},
-            {100, 100, 150, 100, 100, 100, 150, 100, 100, 150, 150, 150, 100, 150, 150, 150},
-            {1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  , 1  }
-        }
-    );
-
-	PulsingObject testObject;
-
-	//auto m = test_object.ToMatrix<4>();
-	testObject.SetTransform(cube);
-
+	
 	MatrixFactory factory;
 	MatrixHelper helper;
+
+	// init through a initalizer_list
+	Matrix<double, 4, 4> cube(
+        {
+			/*x*/{ 0, 1, 1, 0},
+			/*y*/{ 0, 0, 1, 1},
+			/*z*/{ 0, 0, 0, 0},
+
+			/*w*/{ 1, 1, 1, 1}
+        }
+    );
+	cube = factory.CreateTranslationMatrix(100, 100, 100) * factory.CreateScaleMatrix(50, 50, 50) * cube;
+
+	PulsingObject testObject;
+	testObject.SetTransform(cube);
+	testObject.SetLines({
+		{0, 1},
+		{1, 2},
+		{2, 3},
+		{3, 0}
+	});
+
 
 	Camera camera { 
 		 {
@@ -85,9 +93,10 @@ int main(int argc, char *argv[]) {
 			}
 
 			RenderManager::GetInstance().Clear();
-			testObject.Update();
-			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<16>(testObject.GetPoints()));
-			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix));
+			//testObject.Update();
+			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<4>(testObject.GetPoints()));
+			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), testObject.GetLines());
+			//RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject._lines);
 			RenderManager::GetInstance().Refresh();
 
 			// Quick fix FPS lock
