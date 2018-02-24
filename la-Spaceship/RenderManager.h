@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include "Matrix.h"
 #include "Vector2d.h"
+#include "Vector3d.h"
+#include <vector>
 
 class RenderManager : public Singleton<RenderManager>
 {
@@ -17,6 +19,7 @@ public:
 	}
 
 	void Draw(const Vector2d<double>& begin, const Vector2d<double>& end);
+	void DrawPoints(const std::vector<Vector3d<double>>& points);
 	void Refresh();
 	void Clear();
 

@@ -1,5 +1,7 @@
 #include "RenderManager.h"
 #include <iostream>
+#include "Vector3d.h"
+#include <vector>
 
 void RenderManager::CreateWindow(const std::string& title, bool fullscreen, const int width, const int height)
 {
@@ -20,6 +22,28 @@ void RenderManager::Draw(const Vector2d<double>& begin, const Vector2d<double>& 
 {
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawLine(this->_renderer, begin.GetX(), begin.GetY(), end.GetX(), end.GetY());
+}
+
+void RenderManager::DrawPoints(const std::vector<Vector3d<double>>& points)
+{
+	for (auto begin = points.begin(); begin < points.end(); ++begin)
+		{
+			auto end = begin;
+			
+			if (begin == points.end() - 1)
+			{
+				end = points.begin();
+			}
+			else
+			{
+				end++;
+			}
+
+			Draw(
+				{ (*begin).GetX(), (*begin).GetY() }, 
+				{ (*end).GetX(), (*end).GetY() }
+			);
+		}
 }
 
 void RenderManager::Refresh()

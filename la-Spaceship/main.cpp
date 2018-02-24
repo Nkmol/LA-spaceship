@@ -14,7 +14,7 @@
 #undef main
 int main(int argc, char *argv[]) {
 	// init through a initalizer_list
-	const Matrix<double, 4, 16> cube(
+	Matrix<double, 4, 16> cube(
         {
             {100, 150, 150, 150, 150, 100, 100, 100, 100, 100, 150, 150, 150, 150, 100, 100},
             {100, 100, 100, 100, 150, 150, 150, 150, 100, 100, 100, 150, 150, 150, 150, 100},
@@ -23,10 +23,10 @@ int main(int argc, char *argv[]) {
         }
     );
 
-	Object test_object;
+	Object testObject;
 
-	auto m = test_object.ToMatrix<4>();
-	test_object.FromMatrix(m);
+	//auto m = test_object.ToMatrix<4>();
+	testObject.SetTransform(cube);
 
 	MatrixFactory factory;
 	MatrixHelper helper;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 		}
 	};
 
-	const auto projectedMatrix = camera.ProjectMatrix(cube);
+	auto projectedMatrix = camera.ProjectMatrix(cube);
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -79,16 +79,42 @@ int main(int argc, char *argv[]) {
 
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
 				{
-					std::cout << "Moving up" << std::endl;
+					const auto center = testObject.GetCenterPoint();
+					std::cout << "Center: " << std::endl << center << std::endl;
+
+					// Translate center to origin
+					const auto translateToOrigin = factory.CreateTranslationMatrix(
+						-center.GetVal(0, 0), // X
+						-center.GetVal(1, 0), // Y
+						-center.GetVal(2, 0)  // Z
+					);
+
+					const auto minTranslateToOrigin = factory.CreateTranslationMatrix(
+						center.GetVal(0, 0), // X
+						center.GetVal(1, 0), // Y
+						center.GetVal(2, 0)  // Z
+					);
+
+					cube = translateToOrigin * cube;
+					cube = factory.CreateScaleMatrix(1.01, 1.01, 1.01) * cube;
+					cube = minTranslateToOrigin * cube;
+
+					// Save changes
+					testObject.SetTransform(cube);
+					projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<16>(testObject.GetPoints()));
+
+					std::cout << "UP" << std::endl;
 				}
 			}
 
-			test_object.FromMatrix(
+			/*testObject.SetTransform(
 				projectedMatrix
-			);
+			);*/
 
 			RenderManager::GetInstance().Clear();
-			test_object.Draw();
+			
+			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix));
+
 			RenderManager::GetInstance().Refresh();
 		}
 	}
