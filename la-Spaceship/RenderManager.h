@@ -11,13 +11,6 @@ class RenderManager : public Singleton<RenderManager>
 {
 public:
 	void CreateWindow(const std::string& title, bool fullscreen, const int width, const int height);
-
-	template<int size>
-	void Draw(Matrix<double, size, 4> m)
-	{
-		
-	}
-
 	void Draw(const Vector2d<double>& begin, const Vector2d<double>& end);
 	void DrawPoints(const std::vector<Vector3d<double>>& points, const std::vector<std::pair<unsigned, unsigned>>& lines);
 	void Refresh();

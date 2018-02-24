@@ -1,13 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "la-Spaceship", "la-Spaceship\la-Spaceship.vcxproj", "{83E40516-C5A3-4E8D-811A-0036842EDB87}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "la-Spaceship.Test", "la-Spaceship.Test\la-Spaceship.Test.vcxproj", "{0856E712-9C73-4BE2-AB3A-C885DA876D27}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "la-Spaceship.Runnable", "la-Spaceship.Runnable\la-Spaceship.Runnable.vcxproj", "{179F0EE8-C33B-4595-9F87-D0EA31EC48C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83E40516-C5A3-4E8D-811A-0036842EDB87} = {83E40516-C5A3-4E8D-811A-0036842EDB87}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

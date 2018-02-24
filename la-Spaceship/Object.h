@@ -101,7 +101,7 @@ public:
 		const auto center = GetCenterPoint();
 
 		// TODO hardcoded size
-		auto matrix = ToMatrix<16>(GetPoints());
+		auto matrix = ToMatrix<4>(GetPoints());
 
 		// Translate center to origin
 		const auto translateToOrigin = factory.CreateTranslationMatrix(
