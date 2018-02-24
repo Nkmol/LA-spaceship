@@ -30,9 +30,9 @@ template <unsigned int cols>
 Matrix<double, 4, cols> Camera::FixCalculation(Matrix<double, 4, cols> projectedMatrix)
 {
 	// Naberekening (aangezien hulprij w niet meer 1 is)
-	Matrix<double, 4, 16> adjustedProjectedMatrix{};
+	Matrix<double, 4, cols> adjustedProjectedMatrix{};
 
-	for (unsigned int i = 0; i < 16; i++)
+	for (unsigned int i = 0; i < cols; i++)
 	{
 		const double screenSize = 420;
 		const double x = projectedMatrix.Getval(0, i);
