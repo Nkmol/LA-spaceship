@@ -3,6 +3,7 @@
 #include <vector>
 #include "Vector3d.h"
 #include "RenderManager.h"
+#include "MatrixFactory.h"
 
 class Object
 {
@@ -80,6 +81,34 @@ public:
 		}
 
 		return matrix;
+	}
+
+	void Scale(const Matrix<double, 4, 4>& scalar)
+	{
+		MatrixFactory factory;
+		const auto center = GetCenterPoint();
+
+		// TODO hardcoded size
+		auto matrix = ToMatrix<16>(GetPoints());
+
+		// Translate center to origin
+		const auto translateToOrigin = factory.CreateTranslationMatrix(
+			-center.GetVal(0, 0), // X
+			-center.GetVal(1, 0), // Y
+			-center.GetVal(2, 0)  // Z
+		);
+		// Reverse translate center to origin
+		const auto minTranslateToOrigin = factory.CreateTranslationMatrix(
+			center.GetVal(0, 0), // X
+			center.GetVal(1, 0), // Y
+			center.GetVal(2, 0)  // Z
+		);
+
+		matrix = translateToOrigin * matrix;
+		matrix = scalar * matrix;
+		matrix = minTranslateToOrigin * matrix;
+
+		SetTransform(matrix);
 	}
 
 	void Draw()

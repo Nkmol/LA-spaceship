@@ -79,28 +79,7 @@ int main(int argc, char *argv[]) {
 
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
 				{
-					const auto center = testObject.GetCenterPoint();
-					std::cout << "Center: " << std::endl << center << std::endl;
-
-					// Translate center to origin
-					const auto translateToOrigin = factory.CreateTranslationMatrix(
-						-center.GetVal(0, 0), // X
-						-center.GetVal(1, 0), // Y
-						-center.GetVal(2, 0)  // Z
-					);
-
-					const auto minTranslateToOrigin = factory.CreateTranslationMatrix(
-						center.GetVal(0, 0), // X
-						center.GetVal(1, 0), // Y
-						center.GetVal(2, 0)  // Z
-					);
-
-					cube = translateToOrigin * cube;
-					cube = factory.CreateScaleMatrix(1.01, 1.01, 1.01) * cube;
-					cube = minTranslateToOrigin * cube;
-
-					// Save changes
-					testObject.SetTransform(cube);
+					testObject.Scale(factory.CreateScaleMatrix(1.01, 1.01, 1.01));
 					projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<16>(testObject.GetPoints()));
 
 					std::cout << "UP" << std::endl;

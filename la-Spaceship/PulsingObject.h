@@ -5,5 +5,7 @@ class PulsingObject :
 {
 public:
 	using Object::Object;
+
+
 };
 
