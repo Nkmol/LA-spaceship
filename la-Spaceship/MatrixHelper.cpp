@@ -1,7 +1,7 @@
 #include "MatrixHelper.h"
 
 Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double, 4, 4> matrix,
-	std::vector<double> edge_begin, std::vector<double> edge_end)
+                                          std::vector<double> edge_begin, std::vector<double> edge_end) const
 {
 	MatrixFactory factory;
 	int width = 4;
@@ -30,7 +30,7 @@ Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double
 	const auto y_ret = factory.CreateRotationMatrix(-t2, Y, false); // Rotate Y edge back
 	const auto z_ret = factory.CreateRotationMatrix(-t1, Z, false); // Rotate Z edge back
 
-	auto result = (revert * (z_ret * (y_ret * (x_rot * (y_rot * (z_rot * translate)))))) * matrix;
+	auto result = revert * (z_ret * (y_ret * (x_rot * (y_rot * (z_rot * translate))))) * matrix;
 
 
 	// When the matrix is rotated, some values may be very close to zero (due to cos / sin)
@@ -39,7 +39,7 @@ Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double
 	{
 		for (int y = 0; y < height; y++)
 		{
-			result.Setval(y, x, floor(result.Getval(y, x) * 1000000) / 1000000);
+			result.SetVal(y, x, floor(result.GetVal(y, x) * 1000000) / 1000000);
 		}
 	}
 
@@ -48,13 +48,14 @@ Matrix<double, 4, 4> MatrixHelper::Rotate(double angle_percentage, Matrix<double
 
 double MatrixHelper::Dot(const Vector3D& one, const Vector3D& two) const
 {
-	double result {};
+	double result{};
 
 	// Ignore the last "w" row
 	for (unsigned int row = 0; row < 4 - 1; row++)
 	{
-		for(unsigned int col = 0; col < 1; col++) {
-			result += one.Getval(row, col) * two.Getval(row, col);
+		for (unsigned int col = 0; col < 1; col++)
+		{
+			result += one.GetVal(row, col) * two.GetVal(row, col);
 		}
 	}
 
@@ -63,12 +64,14 @@ double MatrixHelper::Dot(const Vector3D& one, const Vector3D& two) const
 
 double MatrixHelper::Length(const Vector3D& one) const
 {
-	double result {};
+	double result{};
 
-	for(unsigned int col = 0; col < 1; col++) {
+	for (unsigned int col = 0; col < 1; col++)
+	{
 		// Ignore the last "w" row
-		for (unsigned int row = 0; row < 4 - 1; row++) {
-			result += one.Getval(row, col) * one.Getval(row, col);
+		for (unsigned int row = 0; row < 4 - 1; row++)
+		{
+			result += one.GetVal(row, col) * one.GetVal(row, col);
 		}
 	}
 
@@ -78,28 +81,30 @@ double MatrixHelper::Length(const Vector3D& one) const
 
 MatrixHelper::Vector3D MatrixHelper::Normalize(const Vector3D& one) const
 {
-	// TODO Errror when cols <= 1 ?
-	Vector3D result {};
+	// TODO(Sander Mol): Errror when cols <= 1 ?
+	Vector3D result{};
 
 	// Ignore the last "w" row
-	for(unsigned int col = 0; col < 1; col++) {
-		auto r = one.Getcol(col);
+	for (unsigned int col = 0; col < 1; col++)
+	{
+		auto r = one.GetCol(col);
 
 		// quick-fix for convert
-		Vector3D vector ( 
-			{ 
+		Vector3D vector(
+			{
 				{r[0]},
 				{r[1]},
 				{r[2]},
 				{r[3]} // or 1?
-			} 
+			}
 		);
 		const auto length = Length(vector);
 
-		for (unsigned int row = 0; row < 4 - 1; row++) {
-			const auto normalized = vector.Getval(row, col) / length;
-			
-			result.Setval(row, col, normalized);
+		for (unsigned int row = 0; row < 4 - 1; row++)
+		{
+			const auto normalized = vector.GetVal(row, col) / length;
+
+			result.SetVal(row, col, normalized);
 		}
 	}
 
@@ -108,15 +113,15 @@ MatrixHelper::Vector3D MatrixHelper::Normalize(const Vector3D& one) const
 
 MatrixHelper::Vector3D MatrixHelper::Cross(const Vector3D& one, const Vector3D& two) const
 {
-	// TODO Errror when cols > 1 ?
+	// TODO(Sander Mol): Errror when cols > 1 ?
 
-	// TODO functionality equals to `this * ofMatrix` ?
-	return Vector3D (
+	// TODO(Sander Mol): functionality equals to `this * ofMatrix` ?
+	return Vector3D(
 		{
-			{ one.Getval(1, 0) * two.Getval(2, 0) - one.Getval(2, 0) * two.Getval(1, 0) }, // ay * bz - az * by
-			{ one.Getval(2, 0) * two.Getval(0, 0) - one.Getval(0, 0) * two.Getval(2, 0) }, // az * bx - ax * bz
-			{ one.Getval(0, 0) * two.Getval(1, 0) - one.Getval(1, 0) * two.Getval(0, 0) }, // ax * by - ay * bx
-			{ 1 }																						 // default value 1 for "w", so it indicates a non-scalar matrix
-		}	
+			{one.GetVal(1, 0) * two.GetVal(2, 0) - one.GetVal(2, 0) * two.GetVal(1, 0)}, // ay * bz - az * by
+			{one.GetVal(2, 0) * two.GetVal(0, 0) - one.GetVal(0, 0) * two.GetVal(2, 0)}, // az * bx - ax * bz
+			{one.GetVal(0, 0) * two.GetVal(1, 0) - one.GetVal(1, 0) * two.GetVal(0, 0)}, // ax * by - ay * bx
+			{1} // default value 1 for "w", so it indicates a non-scalar matrix
+		}
 	);
 }

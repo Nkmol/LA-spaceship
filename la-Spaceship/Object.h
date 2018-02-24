@@ -19,7 +19,7 @@ public:
 
 		for (int x = 0; x < width; x++)
 		{
-			_points.push_back({ matrix.Getval(0, x), matrix.Getval(1, x), matrix.Getval(2, x)});
+			_points.push_back({ matrix.GetVal(0, x), matrix.GetVal(1, x), matrix.GetVal(2, x)});
 		}
 	}
 
@@ -32,10 +32,10 @@ public:
 		for(int x = 0; x < w && x < _points.size(); x++)
 		{
 			auto& point = _points[x];
-			matrix.Setval(0, x, point.GetX());
-			matrix.Setval(1, x, point.GetY());
-			matrix.Setval(2, x, point.GetZ());
-			matrix.Setval(3, x, 1);
+			matrix.SetVal(0, x, point.GetX());
+			matrix.SetVal(1, x, point.GetY());
+			matrix.SetVal(2, x, point.GetZ());
+			matrix.SetVal(3, x, 1);
 		}
 
 		return matrix;
