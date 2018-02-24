@@ -10,11 +10,12 @@
 #include "Matrix.h"
 #include "Object.h"
 #include "Camera.h"
+#include "PulsingObject.h"
 
 #undef main
 int main(int argc, char *argv[]) {
 	// init through a initalizer_list
-	Matrix<double, 4, 16> cube(
+	const Matrix<double, 4, 16> cube(
         {
             {100, 150, 150, 150, 150, 100, 100, 100, 100, 100, 150, 150, 150, 150, 100, 100},
             {100, 100, 100, 100, 150, 150, 150, 150, 100, 100, 100, 150, 150, 150, 150, 100},
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
         }
     );
 
-	Object testObject;
+	PulsingObject testObject;
 
 	//auto m = test_object.ToMatrix<4>();
 	testObject.SetTransform(cube);
@@ -79,22 +80,18 @@ int main(int argc, char *argv[]) {
 
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
 				{
-					testObject.Scale(factory.CreateScaleMatrix(1.01, 1.01, 1.01));
-					projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<16>(testObject.GetPoints()));
-
 					std::cout << "UP" << std::endl;
 				}
 			}
 
-			/*testObject.SetTransform(
-				projectedMatrix
-			);*/
-
 			RenderManager::GetInstance().Clear();
-			
+			testObject.Update();
+			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<16>(testObject.GetPoints()));
 			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix));
-
 			RenderManager::GetInstance().Refresh();
+
+			// Quick fix FPS lock
+			SDL_Delay(16.67);
 		}
 	}
 
