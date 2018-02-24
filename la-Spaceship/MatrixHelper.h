@@ -5,7 +5,7 @@
 class MatrixHelper
 {
 public:
-	Matrix<double, 4, 4> Rotate(double angle_percentage, Matrix<double, 4, 4> matrix, std::vector<double> edge_begin, std::vector<double> edge_end);
+	Matrix<double, 4, 4> Rotate(double angle_percentage, Matrix<double, 4, 4> matrix, std::vector<double> edge_begin, std::vector<double> edge_end) const;
 	
 	typedef double ValueType;
 	typedef Matrix<ValueType, 4, 1> Vector3D;

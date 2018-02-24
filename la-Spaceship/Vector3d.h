@@ -11,17 +11,17 @@ public:
 		_z = z;
 	}
 
-	T GetX()
+	T GetX() const
 	{
 		return _x;
 	}
 
-	T GetY()
+	T GetY() const
 	{
 		return _y;
 	}
 
-	T GetZ()
+	T GetZ() const
 	{
 		return _z;
 	}

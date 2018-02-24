@@ -35,16 +35,16 @@ Matrix<double, 4, cols> Camera::FixCalculation(Matrix<double, 4, cols> projected
 	for (unsigned int i = 0; i < cols; i++)
 	{
 		const double screenSize = 420;
-		const double x = projectedMatrix.Getval(0, i);
-		const double w = projectedMatrix.Getval(3, i);
+		const double x = projectedMatrix.GetVal(0, i);
+		const double w = projectedMatrix.GetVal(3, i);
 		const double newX = screenSize / 2 + (x + 1) / w * screenSize * 0.5;
 
-		const double y = projectedMatrix.Getval(1, i);
+		const double y = projectedMatrix.GetVal(1, i);
 		const double newY = screenSize / 2 + (y + 1) / w * screenSize * 0.5;
 
-		adjustedProjectedMatrix.Setval(0, i, newX);
-		adjustedProjectedMatrix.Setval(1, i, newY);
-		adjustedProjectedMatrix.Setval(2, i, -projectedMatrix.Getval(2, i));
+		adjustedProjectedMatrix.SetVal(0, i, newX);
+		adjustedProjectedMatrix.SetVal(1, i, newY);
+		adjustedProjectedMatrix.SetVal(2, i, -projectedMatrix.GetVal(2, i));
 	}
 
 	return adjustedProjectedMatrix;
