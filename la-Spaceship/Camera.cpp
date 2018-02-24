@@ -6,6 +6,26 @@ Camera::Camera(const Matrix<double, 4, 1>& eye, const Matrix<double, 4, 1>& look
 {
 }
 
+void Camera::SetLookAt(const Matrix<double, 4, 1>& lookAt)
+{
+	_lookat = lookAt;
+}
+
+const Matrix<double, 4, 1>& Camera::GetLookAt() const
+{
+	return _lookat;
+}
+
+void Camera::SetEye(const Matrix<double, 4, 1>& eye)
+{
+	_eye = eye;
+}
+
+const Matrix<double, 4, 1>& Camera::GetEye() const
+{
+	return _eye;
+}
+
 Matrix<double, 4, 4> Camera::CalculateMatrix() const
 {
 	MatrixHelper helper;

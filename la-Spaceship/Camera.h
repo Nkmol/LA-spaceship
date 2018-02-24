@@ -12,6 +12,14 @@ private:
 	Matrix<double, 4, cols> FixCalculation(Matrix<double, 4, cols> projectedMatrix);
 public:
 	Camera(const Matrix<double, 4, 1>& eye, const Matrix<double, 4, 1>& lookat, const Matrix<double, 4, 1>& up);
+
+#pragma region getters/setters
+	void SetLookAt(const Matrix<double, 4, 1>& lookAt);
+	const Matrix<double, 4, 1>& GetLookAt() const;
+	void SetEye(const Matrix<double, 4, 1>& eye);
+	const Matrix<double, 4, 1>& GetEye() const;
+#pragma endregion
+
 	Matrix<double, 4, 4> CalculateMatrix() const;
 
 	template <unsigned int cols>
@@ -24,18 +32,18 @@ Matrix<double, 4, cols> Camera::FixCalculation(Matrix<double, 4, cols> projected
 	// Naberekening (aangezien hulprij w niet meer 1 is)
 	Matrix<double, 4, 16> adjustedProjectedMatrix{};
 
-	for (int i = 0; i < 16; i++)
+	for (unsigned int i = 0; i < 16; i++)
 	{
-		const double screen_size = 420;
+		const double screenSize = 420;
 		const double x = projectedMatrix.Getval(0, i);
 		const double w = projectedMatrix.Getval(3, i);
-		const double new_x = screen_size / 2 + (x + 1) / w * screen_size * 0.5;
+		const double newX = screenSize / 2 + (x + 1) / w * screenSize * 0.5;
 
 		const double y = projectedMatrix.Getval(1, i);
-		const double new_y = screen_size / 2 + (y + 1) / w * screen_size * 0.5;
+		const double newY = screenSize / 2 + (y + 1) / w * screenSize * 0.5;
 
-		adjustedProjectedMatrix.Setval(0, i, new_x);
-		adjustedProjectedMatrix.Setval(1, i, new_y);
+		adjustedProjectedMatrix.Setval(0, i, newX);
+		adjustedProjectedMatrix.Setval(1, i, newY);
 		adjustedProjectedMatrix.Setval(2, i, -projectedMatrix.Getval(2, i));
 	}
 
