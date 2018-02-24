@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
         }
     );
 
+
 	Matrix<double, 4, 16> engine(
 		{
 			{0, 0, 0, 0, 0, 40, 40, 0, 40, 40, 0, 40, 40, 0, 40, 40},
@@ -76,6 +77,7 @@ int main(int argc, char *argv[]) {
 		}
 	);
 
+
 	Object test_object;
 	Object source_object;
 
@@ -90,6 +92,7 @@ int main(int argc, char *argv[]) {
 
 	MatrixFactory factory;
 	MatrixHelper helper;
+	
 
 	Camera camera { 
 		 {
@@ -165,23 +168,25 @@ int main(int argc, char *argv[]) {
 						double collective_y = 0;
 						double collective_z = 0;
 
-						for (int i = 0; i < cube.Getrow(0).size(); i++)
+						for (int i = 0; i < body.Getrow(0).size(); i++)
 						{
-							collective_x += cube.Getval(0, i);
-							collective_y += cube.Getval(1, i);
-							collective_z += cube.Getval(2, 1);
+							collective_x += body.Getval(0, i);
+							collective_y += body.Getval(1, i);
+							collective_z += body.Getval(2, 1);
 						}
 
-						center_x = collective_x / cube.Getrow(0).size();
-						center_y = collective_y / cube.Getrow(1).size();
-						center_z = collective_z / cube.Getrow(2).size();
+						center_x = collective_x / body.Getrow(0).size();
+						center_y = collective_y / body.Getrow(1).size();
+						center_z = collective_z / body.Getrow(2).size();
 					}
 					catch(...)
 					{
 						
 					}
 
-					cube = factory.CreateTranslationMatrix(1, 0, 0) * cube;
+					body = helper.Rotate(10, body, { 90, 50, 70 }, { 90, 51, 70 });
+
+					//cube = factory.CreateTranslationMatrix(1, 0, 0) * cube;
 				}
 
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_CAMERA_MOVE))
