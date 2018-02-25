@@ -11,6 +11,7 @@
 #include "Object.h"
 #include "Camera.h"
 #include "PulsingObject.h"
+#include "MoveableObject.h"
 
 #undef main
 int main(int argc, char *argv[]) {
@@ -30,7 +31,7 @@ int main(int argc, char *argv[]) {
     );
 	cube = factory.CreateTranslationMatrix(100, 100, 100) * factory.CreateScaleMatrix(50, 50, 50) * cube;
 
-	PulsingObject testObject;
+	MoveableObject testObject;
 	testObject.SetTransform(cube);
 	testObject.SetLines({
 		{0, 1},
