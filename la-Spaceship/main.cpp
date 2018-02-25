@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
         }
     );
 
+<<<<<<< HEAD
 
 	//Matrix<double, 4, 16> engine(
 	//	{
@@ -34,6 +35,17 @@ int main(int argc, char *argv[]) {
 	//);
 
 	
+=======
+	Matrix<double, 4, 16> engine(
+		{
+			{0, 0, 0, 0, 0, 40, 40, 0, 40, 40, 0, 40, 40, 0, 40, 40},
+			{0, 0, 100, 100, 0, 10, 10, 0, 10, 90, 100, 90, 90, 100, 90, 10},
+			{30, 110, 110, 30, 30, 30, 110, 110, 110, 110, 110, 110, 30, 30, 30, 30},
+			{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+		}
+	);
+
+>>>>>>> master
 	Matrix<double, 4, 16> body(
 		{
 			{40, 40, 140, 40, 40, 140, 40, 40, 140, 40, 40, 140, 140, 140, 140, 140},
@@ -78,18 +90,33 @@ int main(int argc, char *argv[]) {
 		}
 	);
 
+<<<<<<< HEAD
 
 	Object test_object;
 	Object source_object;
 
+=======
+	Object test_object;
+	Object source_object;
+
+	Object engine_object;
+>>>>>>> master
 	Object body_object;
 	Object head_object;
 	Object left_wing_object;
 	Object right_wing_object;
 
+<<<<<<< HEAD
 	MatrixFactory factory;
 	MatrixHelper helper;
 	
+=======
+	auto m = test_object.ToMatrix<4>();
+	test_object.FromMatrix(m);
+
+	MatrixFactory factory;
+	MatrixHelper helper;
+>>>>>>> master
 
 	Camera camera { 
 		 {
@@ -130,23 +157,107 @@ int main(int argc, char *argv[]) {
 			// Handle events
 			while (inputHandler.poll())
 			{
+<<<<<<< HEAD
 				if (inputHandler.is_event(InputHandler::events::EVENT_QUIT))
 				{
 					running = false;
 				}
 			}
 
+=======
+				if(inputHandler.is_event(InputHandler::events::EVENT_QUIT))
+				{
+					running = false;
+				}
+
+				// TODO use the current camera angel to calculate the movement?
+				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
+				{
+					std::cout << "Moving up" << std::endl;
+					cube = factory.CreateTranslationMatrix(0, 1, 0) * cube;
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_DOWN_MOVE))
+				{
+					std::cout << "Moving down" << std::endl;
+					cube = factory.CreateTranslationMatrix(0, -1, 0) * cube;
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_LEFT_MOVE))
+				{
+					std::cout << "Moving left" << std::endl;
+					cube = factory.CreateTranslationMatrix(-1, 0, 0) * cube;
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_RIGHT_MOVE))
+				{
+					std::cout << "Moving right" << std::endl;
+
+					double center_x;
+					double center_y;
+					double center_z;
+
+					try
+					{
+						double collective_x = 0;
+						double collective_y = 0;
+						double collective_z = 0;
+
+						for (int i = 0; i < cube.Getrow(0).size(); i++)
+						{
+							collective_x += cube.Getval(0, i);
+							collective_y += cube.Getval(1, i);
+							collective_z += cube.Getval(2, 1);
+						}
+
+						center_x = collective_x / cube.Getrow(0).size();
+						center_y = collective_y / cube.Getrow(1).size();
+						center_z = collective_z / cube.Getrow(2).size();
+					}
+					catch(...)
+					{
+						
+					}
+
+					cube = factory.CreateTranslationMatrix(1, 0, 0) * cube;
+				}
+
+				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_CAMERA_MOVE))
+				{
+					std::cout << "Camera Moving up" << std::endl;
+					camera.SetEye(factory.CreateTranslationMatrix(0, 1, 0) * camera.GetEye());
+
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_DOWN_CAMERA_MOVE))
+				{
+					std::cout << "Camera Moving down" << std::endl;
+					camera.SetEye(factory.CreateTranslationMatrix(0, -1, 0) * camera.GetEye());
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_LEFT_CAMERA_MOVE))
+				{
+					std::cout << "Camera Moving left" << std::endl;
+					camera.SetEye(factory.CreateTranslationMatrix(-1, 0, 0) * camera.GetEye());
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_RIGHT_CAMERA_MOVE))
+				{
+					std::cout << "Camera Moving right" << std::endl;
+					camera.SetEye(factory.CreateTranslationMatrix(1, 0, 0) * camera.GetEye());
+				}
+			}
+>>>>>>> master
 
 			const auto projectedMatrix = camera.ProjectMatrix(cube);
 			const auto projected_source_edges = camera.ProjectMatrix(source_edges);
 
+<<<<<<< HEAD
 			/*const auto projected_engine = camera.ProjectMatrix(engine);*/
+=======
+			const auto projected_engine = camera.ProjectMatrix(engine);
+>>>>>>> master
 			const auto projected_body = camera.ProjectMatrix(body);
 			const auto projected_head = camera.ProjectMatrix(head);
 			const auto projected_left_wing = camera.ProjectMatrix(left_wing);
 			const auto projected_right_wing = camera.ProjectMatrix(right_wing);
 
 
+<<<<<<< HEAD
 			test_object.SetTransform(
 				projectedMatrix
 			);
@@ -172,6 +283,33 @@ int main(int argc, char *argv[]) {
 			);
 
 			right_wing_object.SetTransform(
+=======
+			test_object.FromMatrix(
+				projectedMatrix
+			);
+
+			source_object.FromMatrix(
+				projected_source_edges
+			);
+
+			engine_object.FromMatrix(
+				projected_engine
+			);
+
+			body_object.FromMatrix(
+				projected_body
+			);
+
+			head_object.FromMatrix(
+				projected_head
+			);
+
+			left_wing_object.FromMatrix(
+				projected_left_wing
+			);
+
+			right_wing_object.FromMatrix(
+>>>>>>> master
 				projected_right_wing
 			);
 
@@ -179,7 +317,11 @@ int main(int argc, char *argv[]) {
 			//test_object.Draw();
 
 			// Spaceship
+<<<<<<< HEAD
 			//engine_object.Draw();
+=======
+			engine_object.Draw();
+>>>>>>> master
 			body_object.Draw();
 			head_object.Draw();
 			left_wing_object.Draw();
@@ -194,4 +336,8 @@ int main(int argc, char *argv[]) {
 	SDL_Quit();
 
 	return 0;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

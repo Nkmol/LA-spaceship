@@ -21,24 +21,34 @@ int main(int argc, char *argv[]) {
 	MatrixHelper helper;
 
 	// init through a initalizer_list
-	Matrix<double, 4, 4> cube(
+	Matrix<double, 4, 8> cube(
         {
-			/*x*/{ -0.5, 0.5, 0.5, 0},
-			/*y*/{ -0.5, -0.5, 0.5, 0.5},
-			/*z*/{ 0, 0, 0, 0},
 
-			/*w*/{ 1, 1, 1, 1}
+			/*x*/{ -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5 },
+			/*y*/{ -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5 },
+			/*z*/{ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 },
+			/*w*/{ 1, 1, 1, 1, 1, 1, 1, 1}
         }
     );
-	cube = factory.CreateTranslationMatrix(100, 100, 100) * factory.CreateScaleMatrix(50, 50, 50) * cube;
 
-	PulsingObject testObject{ 200,500,500 };
+	cube = factory.CreateScaleMatrix(50, 50, 50) * cube;
+
+	PulsingObject testObject{ 50,50,50 };
 	testObject.SetTransform(cube);
 	testObject.SetLines({
 		{0, 1},
 		{1, 2},
 		{2, 3},
-		{3, 0}
+		{3, 0},
+
+		{1, 4},
+		{4, 5},
+		{5, 2},
+		{5, 6},
+		{6, 7},
+		{6, 3},
+		{7, 4},
+		{7, 0},
 	});
 
 
@@ -196,6 +206,15 @@ int main(int argc, char *argv[]) {
 
 			//RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_rotate_line), rotate_line.GetLines());
 			RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject.GetLines());
+
+			///////// Draw the object
+			//////// 1. First add projection to the object
+			//////projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(testObject.GetPoints()));
+			//////// 2. Send the points + lines to the renderManager
+			//////RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), testObject.GetLines());
+
+			////////RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject._lines);
+
 			RenderManager::GetInstance().Refresh();
 
 			// Quick fix FPS lock

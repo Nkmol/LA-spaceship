@@ -140,7 +140,6 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="MatrixFactory.cpp" />
     <ClCompile Include="MatrixHelper.cpp" />
     <ClCompile Include="PulsingObject.cpp" />
