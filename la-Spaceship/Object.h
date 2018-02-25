@@ -119,10 +119,10 @@ public:
 			center.GetVal(2, 0)  // Z
 		);
 
-		matrix = translateToOrigin * matrix;
-		matrix = scalar * matrix;
+		// Left to right
+		const auto transformation =  minTranslateToOrigin * scalar * translateToOrigin;
 		//std::cout << std::to_string(count) << " - " << (oldMatrix).GetVal(0, 0) << " - " << (matrix - oldMatrix).GetVal(0, 0) << std::endl;
-		matrix = minTranslateToOrigin * matrix;
+		matrix = transformation * matrix;
 
 		SetTransform(matrix);
 	}
