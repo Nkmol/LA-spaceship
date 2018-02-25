@@ -13,8 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Matrix Factory">
-      <UniqueIdentifier>{fed5b43c-7a47-4022-98e5-7fe1f0ecf1f8}</UniqueIdentifier>
+    <Filter Include="Source Files\Matrix">
+      <UniqueIdentifier>{0a93b256-4a2c-466a-8c78-60735a7d414b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,13 +24,22 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MatrixFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MatrixMutationTest.cpp">
-      <Filter>Source Files\Matrix Factory</Filter>
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixCreationTest.cpp">
+      <Filter>Source Files\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixFunc.cpp">
+      <Filter>Source Files\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
