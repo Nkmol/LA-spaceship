@@ -1,8 +1,8 @@
 #include "Spaceship.h"
 #include "MatrixHelper.h"
 
-
-Spaceship::Spaceship()
+Spaceship::Spaceship(double x, double y, double z)
+	: local_origin_point({ { x },{ y },{ z },{ 1 } })
 {
 	Init();
 }

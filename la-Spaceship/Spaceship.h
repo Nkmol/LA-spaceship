@@ -11,9 +11,10 @@ private:
 	Object head;
 	Object left_wing;
 	Object right_wing;
+	Matrix<double, 4, 1> local_origin_point;
 
 public:
-	Spaceship();
+	Spaceship(double x, double y, double z);
 
 	void Draw(Camera& camera);
 	void Rotate(double rotate_percentage, Axis axis);

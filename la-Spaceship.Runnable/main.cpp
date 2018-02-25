@@ -23,8 +23,8 @@ int main(int argc, char *argv[]) {
 	// init through a initalizer_list
 	Matrix<double, 4, 4> cube(
         {
-			/*x*/{ 0, 1, 1, 0},
-			/*y*/{ 0, 0, 1, 1},
+			/*x*/{ -0.5, 0.5, 0.5, 0},
+			/*y*/{ -0.5, -0.5, 0.5, 0.5},
 			/*z*/{ 0, 0, 0, 0},
 
 			/*w*/{ 1, 1, 1, 1}
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     );
 	cube = factory.CreateTranslationMatrix(100, 100, 100) * factory.CreateScaleMatrix(50, 50, 50) * cube;
 
-	PulsingObject testObject;
+	PulsingObject testObject{ 200,500,500 };
 	testObject.SetTransform(cube);
 	testObject.SetLines({
 		{0, 1},
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
 
 	// Create spaceship
-	Spaceship spaceship;
+	Spaceship spaceship{ 0,0,0 };
 
 
 	Matrix<double, 4, 6> source_edges(
@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
 			const auto projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<4>(testObject.GetPoints()));
 
 			RenderManager::GetInstance().Clear();
-			//testObject.Update();
+			testObject.Update();
 
 			Matrix<double, 4, 2> rotate_test
 			{
@@ -191,10 +191,11 @@ int main(int argc, char *argv[]) {
 			const auto projected_rotate_line = camera.ProjectMatrix(Object::ToMatrix<2>(rotate_line.GetPoints()));
 
 
-			spaceship.Draw(camera);
+			//spaceship.Draw(camera);
+			testObject.Draw(camera);
 
-			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_rotate_line), rotate_line.GetLines());
-			//RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject._lines);
+			//RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_rotate_line), rotate_line.GetLines());
+			RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject.GetLines());
 			RenderManager::GetInstance().Refresh();
 
 			// Quick fix FPS lock
