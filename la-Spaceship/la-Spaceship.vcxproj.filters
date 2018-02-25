@@ -54,6 +54,9 @@
     <ClCompile Include="PulsingObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Spaceship.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputHandler.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="PulsingObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Spaceship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

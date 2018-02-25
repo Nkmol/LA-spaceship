@@ -2,6 +2,11 @@
 #include <iostream>
 
 
+PulsingObject::PulsingObject(double x, double y, double z)
+	: local_origin_point({ {x}, {y}, {z}, {1} })
+{
+}
+
 void PulsingObject::Update()
 {
 	count++;
@@ -29,4 +34,25 @@ void PulsingObject::Update()
 	}
 
 	Scale(scaleMatrix);
+}
+
+void PulsingObject::Draw(Camera& camera)
+{
+	MatrixFactory factory;
+
+
+	// Transform
+	const auto translate = factory.CreateTranslationMatrix(
+		local_origin_point.GetVal(0, 0), 
+		local_origin_point.GetVal(1, 0),
+		local_origin_point.GetVal(2, 0)
+	);
+
+	const auto transform = translate * Object::ToMatrix<8>(GetPoints());
+
+	// Projection
+	const auto projection = camera.ProjectMatrix(transform);
+
+	// Draw
+	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projection), GetLines());
 }
