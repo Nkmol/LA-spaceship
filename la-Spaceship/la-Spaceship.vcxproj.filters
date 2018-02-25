@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{f2a87af9-1634-48de-958f-9ed38bafc0ce}</UniqueIdentifier>
     </Filter>
@@ -52,7 +48,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PulsingObject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveableObject.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Spaceship.cpp">
       <Filter>Source Files</Filter>
@@ -93,6 +92,15 @@
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="PulsingObject.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableObject.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Models.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Spaceship.h">

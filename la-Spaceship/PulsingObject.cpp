@@ -1,11 +1,6 @@
 #include "PulsingObject.h"
 #include <iostream>
-
-
-PulsingObject::PulsingObject(double x, double y, double z)
-	: local_origin_point({ {x}, {y}, {z}, {1} })
-{
-}
+#include "Models.h"
 
 void PulsingObject::Update()
 {

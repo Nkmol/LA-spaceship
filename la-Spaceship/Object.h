@@ -5,6 +5,7 @@
 #include "RenderManager.h"
 #include "MatrixFactory.h"
 #include <iostream>
+#include "Camera.h"
 
 class Object
 {
@@ -12,8 +13,22 @@ private:
 	std::vector<Vector3d<double> >  _points;
 	std::vector<std::pair<unsigned int, unsigned int>> _lines;
 
+	Vector3d<double> _local_origin_point = {0, 0, 0};
 	// TODO matrix named _transform, currently unable due to matrix requiring a template.
 public:
+	Object() = default;
+
+	template<unsigned width>
+	Object(const Vector3d<double>& location, const Vector3d<double>& size, const Matrix<double, 4, width>& model)
+	{
+		MatrixFactory factory;
+
+		_local_origin_point = location;
+		const auto si = factory.CreateScaleMatrix(size.GetX(), size.GetY(), size.GetZ());
+
+		SetTransform(si*model);
+	}
+
 	const std::vector<std::pair<unsigned int, unsigned int>>& GetLines() const
 	{
 		return _lines;
@@ -125,33 +140,6 @@ public:
 		matrix = transformation * matrix;
 
 		SetTransform(matrix);
-	}
-
-	void Draw()
-	{
-		// TODO 3d to 2d before drawing (finish transform)
-
-		RenderManager& render_manager = RenderManager::GetInstance();
-
-		for (auto begin = _points.begin(); begin < _points.end(); ++begin)
-		{
-			auto end = begin;
-			
-			if (begin == _points.end() - 1)
-			{
-				end = _points.begin();
-			}
-			else
-			{
-				end++;
-			}
-
-			render_manager.Draw(
-				{ (*begin).GetX(), (*begin).GetY() }, 
-				{ (*end).GetX(), (*end).GetY() }
-			);
-		}
-
 	}
 };
 
