@@ -1,74 +1,58 @@
 //Using SDL and standard IO
 #include <SDL.h>
-#include <ostream>
 #include <iostream>
-
+#include <ostream>
+#include "Camera.h"
 #include "InputHandler.h"
-#include "RenderManager.h"
+#include "Matrix.h"
 #include "MatrixFactory.h"
 #include "MatrixHelper.h"
-#include "Matrix.h"
-#include "Object.h"
-#include "Camera.h"
-#include "PulsingObject.h"
-#include "MoveableObject.h"
 #include "Models.h"
+#include "MoveableObject.h"
+#include "Object.h"
+#include "PulsingObject.h"
+#include "RenderManager.h"
 #include "Spaceship.h"
 
 #undef main
-int main(int argc, char *argv[]) {
-	
-
+int main(int /*argc*/, char* /*argv*/[])
+{
 	MatrixFactory factory;
 	MatrixHelper helper;
 
-	PulsingObject pulsingObject({100, 100, 100}, {50, 50, 50}, Model::Cube);
-	pulsingObject.SetLines({
-		{0, 1},
-		{1, 2},
-		{2, 3},
-		{3, 0},
+	PulsingObject pulsingObject({100, 100, 100}, {50, 50, 50}, Models::Cube::matrix);
+	pulsingObject.SetLines(Models::Cube::lines);
 
-		{1, 4},
-		{4, 5},
-		{5, 2},
-		{5, 6},
-		{6, 7},
-		{6, 3},
-		{7, 4},
-		{7, 0},
-	});
-
-	MoveableObject bullet({100, 100, 100}, {5, 5, 15}, Model::Cube);
-	bullet.SetLines(pulsingObject.GetLines());
+	MoveableObject bullet({100, 100, 100}, {5, 5, 15}, Models::Cube::matrix);
+	bullet.SetLines(Models::Cube::lines);
 
 	// Create spaceship
-	Spaceship spaceship{ 0,0,0 };
+	Spaceship spaceship{0, 0, 0};
 
 
 	Matrix<double, 4, 6> source_edges(
-	{
-		{ 0, 1000, 0, 0, 0, 0 },
-		{ 0, 0, 0, 1000, 0, 0 },
-		{ 0, 0, 0, 0, 0, 1000 },
-		{ 1 ,1, 1, 1, 1, 1 }
-	}
+		{
+			{0, 1000, 0, 0, 0, 0},
+			{0, 0, 0, 1000, 0, 0},
+			{0, 0, 0, 0, 0, 1000},
+			{1, 1, 1, 1, 1, 1}
+		}
 	);
 
 	// Ship camera settings
-		Camera camera { 
-		 {
-            {100},
-            {150},
-            {250},
-            {1}
-        },
-        {
-            {100},
-            {0},
-            {0},
-            {1}
-        },
+	Camera camera{
+		{
+			{100},
+			{150},
+			{250},
+			{1}
+		},
+		{
+			{100},
+			{0},
+			{0},
+			{1}
+		},
 		{
 			{0},
 			{-1},
@@ -77,13 +61,10 @@ int main(int argc, char *argv[]) {
 		}
 	};
 
-	auto cube = Model::Cube;
-	auto projectedMatrix = camera.ProjectMatrix(cube);
-
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-	//	printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+		//	printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
 	}
 	else
 	{
@@ -103,7 +84,7 @@ int main(int argc, char *argv[]) {
 					running = false;
 				}
 
-				// TODO use the current camera angel to calculate the movement?
+				// TODO(Sander Mol): use the current camera angel to calculate the movement?
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
 				{
 					std::cout << "Moving up" << std::endl;
@@ -129,7 +110,6 @@ int main(int argc, char *argv[]) {
 				{
 					std::cout << "Camera Moving up" << std::endl;
 					camera.SetEye(factory.CreateTranslationMatrix(0, 1, 0) * camera.GetEye());
-
 				}
 				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_DOWN_CAMERA_MOVE))
 				{
@@ -152,7 +132,7 @@ int main(int argc, char *argv[]) {
 
 			pulsingObject.Update();
 			pulsingObject.Draw(camera);
-			
+
 			bullet.Update();
 			bullet.Draw(camera);
 			/*Matrix<double, 4, 2> rotate_test
