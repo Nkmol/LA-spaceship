@@ -55,15 +55,15 @@ public:
 		auto result = ((y_ret * (z_ret * (x_rot * (z_rot * (y_rot))))));
 
 
-		// When the matrix is rotated, some values may be very close to zero (due to cos / sin)
-		// To fix this the value is rounded down when there are a lot decimals.
-		for (int x = 0; x < width; x++)
-		{
-			for (int y = 0; y < height; y++)
-			{
-				result.SetVal(y, x, floor(result.GetVal(y, x) * 1000000) / 1000000);
-			}
-		}
+		//// When the matrix is rotated, some values may be very close to zero (due to cos / sin)
+		//// To fix this the value is rounded down when there are a lot decimals.
+		//for (int x = 0; x < width; x++)
+		//{
+		//	for (int y = 0; y < height; y++)
+		//	{
+		//		result.SetVal(y, x, floor(result.GetVal(y, x) * 1000000) / 1000000);
+		//	}
+		//}
 
 		return result;
 	}
