@@ -20,7 +20,14 @@ void MoveableObject::SetDirection(const Vector3d<double>& direction)
 
 void MoveableObject::SetVelocity(const double value)
 {
-	_velocity = value;
+	if (value < 0)
+	{
+		_velocity = 0;
+	}
+	else
+	{
+		_velocity = value;
+	}
 }
 
 double MoveableObject::GetVelocity() const

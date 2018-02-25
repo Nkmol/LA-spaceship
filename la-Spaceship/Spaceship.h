@@ -14,7 +14,10 @@ private:
 	Object head;
 	Object left_wing;
 	Object right_wing;
+	Object help_lines;
 	Matrix<double, 4, 1> local_origin_point;
+
+	bool show_help_lines = true;
 
 	std::vector<Bullet> bullets;
 
@@ -26,6 +29,7 @@ public:
 	void Rotate(double rotate_percentage, Axis axis);
 	void Accelerate(double amount);
 	void Update();
+	void ToggleHelpLines();
 
 	// Init parts
 	void Init();
@@ -34,6 +38,7 @@ public:
 	void ConstructHead();
 	void ConstructLeftWing();
 	void ConstructRightWing();
+	void ConstructHelpLines();
 };
 
 

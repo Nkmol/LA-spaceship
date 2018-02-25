@@ -160,6 +160,30 @@ int main(int argc, char *argv[]) {
 					camera.SetEye(factory.CreateTranslationMatrix(1, 0, 0) * camera.GetEye());
 				}
 
+				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_LOOKAT_MOVE))
+				{
+					std::cout << "Lookat Moving up" << std::endl;
+					camera.SetLookAt(factory.CreateTranslationMatrix(0, 1, 0) * camera.GetLookAt());
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_DOWN_LOOKAT_MOVE))
+				{
+					std::cout << "Lookat Moving up" << std::endl;
+					camera.SetLookAt(factory.CreateTranslationMatrix(0, -1, 0) * camera.GetLookAt());
+
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_LEFT_LOOKAT_MOVE))
+				{
+					std::cout << "Lookat Moving up" << std::endl;
+					camera.SetLookAt(factory.CreateTranslationMatrix(-1, 0, 0) * camera.GetLookAt());
+
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_RIGHT_LOOKAT_MOVE))
+				{
+					std::cout << "Lookat Moving up" << std::endl;
+					camera.SetLookAt(factory.CreateTranslationMatrix(1, 0, 0) * camera.GetLookAt());
+				}
+
+
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_SHOOT))
 				{
  					spaceship.Shoot();
@@ -168,6 +192,15 @@ int main(int argc, char *argv[]) {
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_ACCELERATE))
 				{
 					spaceship.Accelerate(1);
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_BRAKE))
+				{
+					spaceship.Accelerate(-1);
+				}
+
+				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_HELP))
+				{
+					spaceship.ToggleHelpLines();
 				}
 			}
 

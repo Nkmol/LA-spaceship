@@ -82,12 +82,19 @@ void Spaceship::Draw(Camera& camera)
 	const auto projected_right_wing = camera.ProjectMatrix(right_wing_transform);
 
 	// Draw objects
-	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_engine), engine.GetLines());
-	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_body), body.GetLines());
-	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_head), head.GetLines());
-	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_right_wing), right_wing.GetLines());
-	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_left_wing), left_wing.GetLines());
+	RenderManager& render_manager = RenderManager::GetInstance();
+	render_manager.DrawPoints(Object::ToPoints(projected_engine), engine.GetLines());
+	render_manager.DrawPoints(Object::ToPoints(projected_body), body.GetLines());
+	render_manager.DrawPoints(Object::ToPoints(projected_head), head.GetLines());
+	render_manager.DrawPoints(Object::ToPoints(projected_right_wing), right_wing.GetLines());
+	render_manager.DrawPoints(Object::ToPoints(projected_left_wing), left_wing.GetLines());
 
+	if (show_help_lines)
+	{
+		const auto help_lines_transform = translate * Object::ToMatrix<4>(help_lines.GetPoints());
+		const auto projected_help_lines = camera.ProjectMatrix(help_lines_transform);
+		render_manager.DrawPoints(Object::ToPoints(projected_help_lines), help_lines.GetLines());
+	}
 }
 
 void Spaceship::Rotate(double rotate_percentage, Axis axis)
@@ -98,6 +105,7 @@ void Spaceship::Rotate(double rotate_percentage, Axis axis)
 	const auto head_matrix = Object::ToMatrix<5>(head.GetPoints());
 	const auto left_wing_matrix = Object::ToMatrix<3>(left_wing.GetPoints());
 	const auto right_wing_matrix = Object::ToMatrix<3>(right_wing.GetPoints());
+	const auto help_lines_matrix = Object::ToMatrix<4>(help_lines.GetPoints());
 
 	const auto center = body.GetCenterPoint();
 
@@ -133,6 +141,8 @@ void Spaceship::Rotate(double rotate_percentage, Axis axis)
 	left_wing.SetTransform(transformation * left_wing_matrix);
 
 	right_wing.SetTransform(transformation * right_wing_matrix);
+
+	help_lines.SetTransform(transformation * help_lines_matrix);
 }
 
 void Spaceship::Accelerate(double amount)
@@ -156,6 +166,11 @@ void Spaceship::Update()
 	local_origin_point = GetMovementTransform() * local_origin_point;
 }
 
+void Spaceship::ToggleHelpLines()
+{
+	show_help_lines = !show_help_lines;
+}
+
 
 void Spaceship::Init()
 {
@@ -164,6 +179,7 @@ void Spaceship::Init()
 	ConstructHead();
 	ConstructLeftWing();
 	ConstructRightWing();
+	ConstructHelpLines();
 }
 
 void Spaceship::ConstructEngine()
@@ -293,6 +309,26 @@ void Spaceship::ConstructRightWing()
 	}
 	);
 
+}
+
+void Spaceship::ConstructHelpLines()
+{
+	Matrix<double,4,4> points(
+	{
+		{0, 500, 0, 0},
+		{0, 0, 500, 0},
+		{0, 0, 0, 500},
+		{1, 1, 1, 1}
+	});
+
+	help_lines.SetTransform(points);
+
+	help_lines.SetLines(
+	{
+		{0, 1},
+		{0, 2},
+		{0, 3}
+	});
 }
 
 
