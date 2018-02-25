@@ -153,6 +153,7 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixFactory.h" />
     <ClInclude Include="MatrixHelper.h" />
+    <ClInclude Include="Models.h" />
     <ClInclude Include="MoveableObject.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PulsingObject.h" />

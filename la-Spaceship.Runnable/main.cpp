@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "PulsingObject.h"
 #include "MoveableObject.h"
+#include "Models.h"
 
 #undef main
 int main(int argc, char *argv[]) {
@@ -19,21 +20,8 @@ int main(int argc, char *argv[]) {
 	MatrixFactory factory;
 	MatrixHelper helper;
 
-	// init through a initalizer_list
-	Matrix<double, 4, 8> cube(
-        {
-			/*x*/{ 0, 1, 1, 0, 1, 1, 0, 0},
-			/*y*/{ 0, 0, 1, 1, 0, 1, 1, 0},
-			/*z*/{ 0, 0, 0, 0, 1, 1, 1, 1},
-							  	       
-			/*w*/{ 1, 1, 1, 1, 1, 1, 1, 1}
-        }
-    );
-	cube = factory.CreateTranslationMatrix(100, 100, 100) * factory.CreateScaleMatrix(50, 50, 50) * cube;
-
-	MoveableObject testObject;
-	testObject.SetTransform(cube);
-	testObject.SetLines({
+	PulsingObject pulsingObject({100, 100, 100}, {50, 50, 50}, Model::Cube);
+	pulsingObject.SetLines({
 		{0, 1},
 		{1, 2},
 		{2, 3},
@@ -49,6 +37,8 @@ int main(int argc, char *argv[]) {
 		{7, 0},
 	});
 
+	MoveableObject bullet({100, 100, 100}, {5, 5, 15}, Model::Cube);
+	bullet.SetLines(pulsingObject.GetLines());
 
 	Camera camera { 
 		 {
@@ -71,6 +61,7 @@ int main(int argc, char *argv[]) {
 		}
 	};
 
+	auto cube = Model::Cube;
 	auto projectedMatrix = camera.ProjectMatrix(cube);
 
 	//Initialize SDL
@@ -142,13 +133,14 @@ int main(int argc, char *argv[]) {
 			}
 
 			RenderManager::GetInstance().Clear();
-			testObject.Update();
 
-			/// Draw the object
-			// 1. First add projection to the object
-			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(testObject.GetPoints()));
-			// 2. Send the points + lines to the renderManager
-			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), testObject.GetLines());
+			pulsingObject.Update();
+			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(pulsingObject.GetPoints()));
+			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), pulsingObject.GetLines());
+			
+			bullet.Update();
+			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(bullet.GetPoints()));
+			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), bullet.GetLines());
 
 			//RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject._lines);
 			RenderManager::GetInstance().Refresh();

@@ -14,6 +14,17 @@ private:
 
 	// TODO matrix named _transform, currently unable due to matrix requiring a template.
 public:
+	template<unsigned width>
+	Object(const Vector3d<double>& location, const Vector3d<double>& size, const Matrix<double, 4, width>& model)
+	{
+		MatrixFactory factory;
+
+		const auto loc = factory.CreateTranslationMatrix(location.GetX(), location.GetX(), location.GetY());
+		const auto si = factory.CreateScaleMatrix(size.GetX(), size.GetY(), size.GetZ());
+
+		SetTransform(loc*si*model);
+	}
+
 	const std::vector<std::pair<unsigned int, unsigned int>>& GetLines() const
 	{
 		return _lines;
