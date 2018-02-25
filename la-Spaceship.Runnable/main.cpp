@@ -23,7 +23,7 @@ int main(int /*argc*/, char* /*argv*/[])
 	// Create spaceship
 	Spaceship spaceship{ 200, 200, 200 };
 
-	PulsingObject pulsingObject({100, 100, 100}, {50, 50, 50}, Models::Cube::matrix);
+	PulsingObject pulsingObject({800, 300, 250}, {25, 25, 25}, Models::Cube::matrix);
 	pulsingObject.SetLines(Models::Cube::lines);
 
 	// Ship camera settings
