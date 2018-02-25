@@ -9,7 +9,7 @@
 
 class Object
 {
-private:
+protected:
 	std::vector<Vector3d<double> >  _points;
 	std::vector<std::pair<unsigned int, unsigned int>> _lines;
 
@@ -111,8 +111,6 @@ public:
 		return matrix;
 	}
 
-	int count = 0;
-
 	void Scale(const Matrix<double, 4, 4>& scalar)
 	{
 		MatrixFactory factory;
@@ -140,6 +138,26 @@ public:
 		matrix = transformation * matrix;
 
 		SetTransform(matrix);
+	}
+
+	void Draw(Camera& camera) const
+	{
+		MatrixFactory factory;
+
+		// Transform
+		const auto translate = factory.CreateTranslationMatrix(
+			_local_origin_point.GetX(),
+			_local_origin_point.GetY(),
+			_local_origin_point.GetZ()
+		);
+
+		const auto transform = translate * ToMatrix<8>(GetPoints());
+
+		// Projection
+		const auto projection = camera.ProjectMatrix(transform);
+
+		// Draw
+		RenderManager::GetInstance().DrawPoints(ToPoints(projection), GetLines());
 	}
 };
 

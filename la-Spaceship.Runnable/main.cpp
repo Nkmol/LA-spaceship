@@ -151,19 +151,17 @@ int main(int argc, char *argv[]) {
 			RenderManager::GetInstance().Clear();
 
 			pulsingObject.Update();
-			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(pulsingObject.GetPoints()));
-			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), pulsingObject.GetLines());
+			pulsingObject.Draw(camera);
 			
 			bullet.Update();
-			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(bullet.GetPoints()));
-			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), bullet.GetLines());
-			Matrix<double, 4, 2> rotate_test
+			bullet.Draw(camera);
+			/*Matrix<double, 4, 2> rotate_test
 			{
 				{90, 90},
 				{10, 90},
 				{70, 70},
 				{1 , 1 }
-			};
+			};*/
 
 			/*Object rotate_line;
 
@@ -175,8 +173,7 @@ int main(int argc, char *argv[]) {
 
 
 			//spaceship.Draw(camera);
-			pulsingObject.Update();
-			pulsingObject.Draw(camera);
+			//pulsingObject.Draw(camera);
 
 			RenderManager::GetInstance().Refresh();
 

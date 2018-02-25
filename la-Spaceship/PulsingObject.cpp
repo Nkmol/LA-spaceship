@@ -4,8 +4,6 @@
 
 void PulsingObject::Update()
 {
-	count++;
-
 	MatrixFactory factory;
 
 	Matrix<double, 4, 4> scaleMatrix;
@@ -22,32 +20,11 @@ void PulsingObject::Update()
 	}
 
 	_totalAmountPulsed += _pulseAmount;
-	if(_totalAmountPulsed >= 1.5)
+	if(_totalAmountPulsed >= 1.2)
 	{
 		_grow = !_grow;
 		_totalAmountPulsed = 0;
 	}
 
 	Scale(scaleMatrix);
-}
-
-void PulsingObject::Draw(Camera& camera)
-{
-	MatrixFactory factory;
-
-
-	// Transform
-	const auto translate = factory.CreateTranslationMatrix(
-		local_origin_point.GetVal(0, 0), 
-		local_origin_point.GetVal(1, 0),
-		local_origin_point.GetVal(2, 0)
-	);
-
-	const auto transform = translate * Object::ToMatrix<8>(GetPoints());
-
-	// Projection
-	const auto projection = camera.ProjectMatrix(transform);
-
-	// Draw
-	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projection), GetLines());
 }
