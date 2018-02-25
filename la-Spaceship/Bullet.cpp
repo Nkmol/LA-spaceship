@@ -1,7 +1,8 @@
 #include "Bullet.h"
+#include "Models.h"
 
-Bullet::Bullet(double x, double y, double z, Vector3d<double> direction, double velocity)
-	: local_point({ { x },{ y },{ z },{ 1 } })
+Bullet::Bullet(double x, double y, double z, const Vector3d<double>& direction, double velocity)
+	: Object({x, y, z}, {1, 1, 1}, Models::Cube::matrix)
 {
 	MoveableObject::SetVelocity(velocity + bullet_velocity);
 	MoveableObject::SetDirection(direction);
@@ -9,25 +10,13 @@ Bullet::Bullet(double x, double y, double z, Vector3d<double> direction, double 
 
 void Bullet::Update()
 {
-	local_point = GetMovementTransform() * local_point;
-}
+	const Matrix<double, 4, 1> origin_m = {
+		{_local_origin_point.GetX()},
+		{_local_origin_point.GetY()},
+		{_local_origin_point.GetZ()},
+		{1}
+	};
+	const auto result = GetMovementTransform() * origin_m;
 
-void Bullet::Draw(Camera& camera)
-{
-	MatrixFactory factory;
-
-	// Transform
-	const auto translate = factory.CreateTranslationMatrix(
-		local_point.GetVal(0, 0),
-		local_point.GetVal(1, 0),
-		local_point.GetVal(2, 0)
-	);
-
-	const auto engine_transform = translate * Object::ToMatrix<8>(GetPoints());
-
-	// Create Projection
-	const auto projection = camera.ProjectMatrix(engine_transform);
-
-	// Draw objects
-	RenderManager::GetInstance().DrawPoints(Object::ToPoints(projection), GetLines());
+	_local_origin_point = {result.GetVal(0, 0), result.GetVal(1, 0), result.GetVal(2, 0)};
 }
