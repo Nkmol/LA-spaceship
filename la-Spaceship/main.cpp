@@ -23,6 +23,19 @@ int main(int argc, char *argv[]) {
         }
     );
 
+<<<<<<< HEAD
+
+	//Matrix<double, 4, 16> engine(
+	//	{
+	//		{0, 0, 0, 0, 0, 40, 40, 0, 40, 40, 0, 40, 40, 0, 40, 40},
+	//		{0, 0, 100, 100, 0, 10, 10, 0, 10, 90, 100, 90, 90, 100, 90, 10},
+	//		{30, 110, 110, 30, 30, 30, 110, 110, 110, 110, 110, 110, 30, 30, 30, 30},
+	//		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	//	}
+	//);
+
+	
+=======
 	Matrix<double, 4, 16> engine(
 		{
 			{0, 0, 0, 0, 0, 40, 40, 0, 40, 40, 0, 40, 40, 0, 40, 40},
@@ -32,6 +45,7 @@ int main(int argc, char *argv[]) {
 		}
 	);
 
+>>>>>>> master
 	Matrix<double, 4, 16> body(
 		{
 			{40, 40, 140, 40, 40, 140, 40, 40, 140, 40, 40, 140, 140, 140, 140, 140},
@@ -76,20 +90,33 @@ int main(int argc, char *argv[]) {
 		}
 	);
 
+<<<<<<< HEAD
+
+	Object test_object;
+	Object source_object;
+
+=======
 	Object test_object;
 	Object source_object;
 
 	Object engine_object;
+>>>>>>> master
 	Object body_object;
 	Object head_object;
 	Object left_wing_object;
 	Object right_wing_object;
 
+<<<<<<< HEAD
+	MatrixFactory factory;
+	MatrixHelper helper;
+	
+=======
 	auto m = test_object.ToMatrix<4>();
 	test_object.FromMatrix(m);
 
 	MatrixFactory factory;
 	MatrixHelper helper;
+>>>>>>> master
 
 	Camera camera { 
 		 {
@@ -130,6 +157,14 @@ int main(int argc, char *argv[]) {
 			// Handle events
 			while (inputHandler.poll())
 			{
+<<<<<<< HEAD
+				if (inputHandler.is_event(InputHandler::events::EVENT_QUIT))
+				{
+					running = false;
+				}
+			}
+
+=======
 				if(inputHandler.is_event(InputHandler::events::EVENT_QUIT))
 				{
 					running = false;
@@ -206,17 +241,49 @@ int main(int argc, char *argv[]) {
 					camera.SetEye(factory.CreateTranslationMatrix(1, 0, 0) * camera.GetEye());
 				}
 			}
+>>>>>>> master
 
 			const auto projectedMatrix = camera.ProjectMatrix(cube);
 			const auto projected_source_edges = camera.ProjectMatrix(source_edges);
 
+<<<<<<< HEAD
+			/*const auto projected_engine = camera.ProjectMatrix(engine);*/
+=======
 			const auto projected_engine = camera.ProjectMatrix(engine);
+>>>>>>> master
 			const auto projected_body = camera.ProjectMatrix(body);
 			const auto projected_head = camera.ProjectMatrix(head);
 			const auto projected_left_wing = camera.ProjectMatrix(left_wing);
 			const auto projected_right_wing = camera.ProjectMatrix(right_wing);
 
 
+<<<<<<< HEAD
+			test_object.SetTransform(
+				projectedMatrix
+			);
+
+			source_object.SetTransform(
+				projected_source_edges
+			);
+
+		/*	engine_object.SetTransform(
+				projected_engine
+			);*/
+
+			body_object.SetTransform(
+				projected_body
+			);
+
+			head_object.SetTransform(
+				projected_head
+			);
+
+			left_wing_object.SetTransform(
+				projected_left_wing
+			);
+
+			right_wing_object.SetTransform(
+=======
 			test_object.FromMatrix(
 				projectedMatrix
 			);
@@ -242,6 +309,7 @@ int main(int argc, char *argv[]) {
 			);
 
 			right_wing_object.FromMatrix(
+>>>>>>> master
 				projected_right_wing
 			);
 
@@ -249,7 +317,11 @@ int main(int argc, char *argv[]) {
 			//test_object.Draw();
 
 			// Spaceship
+<<<<<<< HEAD
+			//engine_object.Draw();
+=======
 			engine_object.Draw();
+>>>>>>> master
 			body_object.Draw();
 			head_object.Draw();
 			left_wing_object.Draw();
@@ -264,4 +336,8 @@ int main(int argc, char *argv[]) {
 	SDL_Quit();
 
 	return 0;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master
