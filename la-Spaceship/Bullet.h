@@ -6,14 +6,13 @@ class Bullet :
 	public Object, MoveableObject
 	
 {
+	using Object::Object;
 private:
-	Matrix<double, 4, 1> local_point;
 	const double bullet_velocity = 50;
 
 public:
-	Bullet(double x, double y, double z, Vector3d<double> direction, double acceleration);
-	
+	Bullet(double x, double y, double z, const Vector3d<double>& direction, double velocity);
+
 	void Update();
-	void Draw(Camera& camera);
 };
 
