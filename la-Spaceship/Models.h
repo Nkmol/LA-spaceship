@@ -1,13 +1,29 @@
 #pragma once
 #include "Matrix.h"
 
-namespace Model
+namespace Models
 {
-	const Matrix<double, 4, 8> Cube{
-		/*x*/{0, 1, 1, 0, 1, 1, 0, 0},
-		/*y*/{0, 0, 1, 1, 0, 1, 1, 0},
-		/*z*/{0, 0, 0, 0, 1, 1, 1, 1},
+	namespace Cube {
+		const Matrix<double, 4, 8> matrix{
+			/*x*/{ -0.5,  0.5,  0.5, -0.5,  0.5, 0.5, -0.5, -0.5 },
+			/*y*/{ -0.5, -0.5,  0.5,  0.5, -0.5, 0.5,  0.5, -0.5 },
+			/*z*/{ -0.5, -0.5, -0.5, -0.5,  0.5, 0.5,  0.5,  0.5 },
+			/*w*/{    1,    1,    1,    1,    1,   1,    1,    1 }
+		};
 
-		/*w*/{1, 1, 1, 1, 1, 1, 1, 1}
+		const std::vector<std::pair<unsigned int, unsigned int>> lines {
+			{0, 1},
+			{1, 2},
+			{2, 3},
+			{3, 0},
+			{1, 4},
+			{4, 5},
+			{5, 2},
+			{5, 6},
+			{6, 7},
+			{6, 3},
+			{7, 4},
+			{7, 0}
+		};
 	};
 }

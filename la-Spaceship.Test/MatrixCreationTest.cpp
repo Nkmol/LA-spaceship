@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../la-Spaceship/MatrixFactory.h"
 
@@ -6,7 +6,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace laSpaceshipTest
 {
-	TEST_CLASS(MatrixMutationTest)
+	TEST_CLASS(MatrixCreationTests)
 	{
 	public:
 		TEST_METHOD(scale_create)
@@ -41,38 +41,6 @@ namespace laSpaceshipTest
 			Assert().AreEqual(scaleMatrix.GetVal(3, 1), 0.0);
 			Assert().AreEqual(scaleMatrix.GetVal(3, 2), 0.0);
 			Assert().AreEqual(scaleMatrix.GetVal(3, 3), 1.0);
-		}
-
-		TEST_METHOD(scale_matrix_by_two_should_mult_all_values)
-		{
-			// Arrange
-			MatrixFactory factory;
-			const auto test_matrix = CreateTestMatrix();
-			const auto scale_matrix = factory.CreateScaleMatrix(2, 2, 2);
-
-			// Act
-			const auto result = scale_matrix * test_matrix;
-
-			// Assert
-			Assert().AreEqual(result.GetVal(0, 0), 200.0);
-			Assert().AreEqual(result.GetVal(0, 1), 400.0);
-			Assert().AreEqual(result.GetVal(0, 2), 600.0);
-			Assert().AreEqual(result.GetVal(0, 3), 800.0);
-							  					   	  
-			Assert().AreEqual(result.GetVal(1, 0), 1000.0);
-			Assert().AreEqual(result.GetVal(1, 1), 1200.0);
-			Assert().AreEqual(result.GetVal(1, 2), 1400.0);
-			Assert().AreEqual(result.GetVal(1, 3), 1600.0);
-							  					   	  
-			Assert().AreEqual(result.GetVal(2, 0), 1800.0);
-			Assert().AreEqual(result.GetVal(2, 1), 2000.0);
-			Assert().AreEqual(result.GetVal(2, 2), 2200.0);
-			Assert().AreEqual(result.GetVal(2, 3), 2400.0);
-
-			Assert().AreEqual(result.GetVal(3, 0), 1.0);
-			Assert().AreEqual(result.GetVal(3, 1), 1.0);
-			Assert().AreEqual(result.GetVal(3, 2), 1.0);
-			Assert().AreEqual(result.GetVal(3, 3), 1.0);
 		}
 
 		TEST_METHOD(translate_create)

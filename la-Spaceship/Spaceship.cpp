@@ -22,32 +22,14 @@ void Spaceship::Shoot()
 		local_origin_point.GetVal(1, 0),
 		local_origin_point.GetVal(2, 0)
 	);
-
 	
 	const auto spawn = (translate * Object::ToMatrix<5>(head.GetPoints())).GetCol(0);
 
-
 	Bullet bullet{ spawn[0], spawn[1], spawn[2], bullet_direction, GetVelocity() };
 
-	bullet.SetTransform(Model::Cube);
+	bullet.SetTransform(Models::Cube::matrix);
 
-	bullet.SetLines({
-		{ 0, 1 },
-		{ 1, 2 },
-		{ 2, 3 },
-		{ 3, 0 },
-
-		{ 1, 4 },
-		{ 4, 5 },
-		{ 5, 2 },
-		{ 5, 6 },
-		{ 6, 7 },
-		{ 6, 3 },
-		{ 7, 4 },
-		{ 7, 0 },
-	});
-
-
+	bullet.SetLines(Models::Cube::lines);
 
 	bullets.push_back(bullet);
 }
@@ -99,6 +81,8 @@ void Spaceship::Draw(Camera& camera)
 
 void Spaceship::Rotate(double rotate_percentage, Axis axis)
 {
+	MatrixHelper helper;
+	MatrixFactory factory;
 
 	const auto engine_matrix = Object::ToMatrix<8>(engine.GetPoints());
 	const auto body_matrix = Object::ToMatrix<8>(body.GetPoints());
@@ -108,11 +92,6 @@ void Spaceship::Rotate(double rotate_percentage, Axis axis)
 	const auto help_lines_matrix = Object::ToMatrix<4>(help_lines.GetPoints());
 
 	const auto center = body.GetCenterPoint();
-
-	MatrixHelper helper;
-
-
-	MatrixFactory factory;
 
 	const auto translate = factory.CreateTranslationMatrix(-center.GetVal(0, 0), -center.GetVal(1, 0), -center.GetVal(2, 0));
 	const auto revert = factory.CreateTranslationMatrix(center.GetVal(0, 0), center.GetVal(1, 0), center.GetVal(2, 0));
@@ -129,19 +108,11 @@ void Spaceship::Rotate(double rotate_percentage, Axis axis)
 
 	const auto transformation = translate * rotate_matrix * revert;
 
-
 	body.SetTransform(transformation * body_matrix);
-
-
 	head.SetTransform(transformation * head_matrix);
-
-
 	engine.SetTransform(transformation * engine_matrix);
-
 	left_wing.SetTransform(transformation * left_wing_matrix);
-
 	right_wing.SetTransform(transformation * right_wing_matrix);
-
 	help_lines.SetTransform(transformation * help_lines_matrix);
 }
 
