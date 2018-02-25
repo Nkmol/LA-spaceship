@@ -65,30 +65,6 @@ int main(int argc, char *argv[]) {
 	}
 	);
 
-
-	// Camera
-
-	//Camera camera { 
-	//	 {
- //           {0},
- //           {250},
- //           {0},
- //           {1}
- //       },
- //       {
- //           {250},
- //           {0},
- //           {250},
- //           {1}
- //       },
-	//	{
-	//		{0},
-	//		{1},
-	//		{0},
-	//		{1}
-	//	}
-	//};
-
 	// Ship camera settings
 		Camera camera { 
 		 {
@@ -203,17 +179,6 @@ int main(int argc, char *argv[]) {
 
 			//spaceship.Draw(camera);
 			testObject.Draw(camera);
-
-			//RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_rotate_line), rotate_line.GetLines());
-			RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject.GetLines());
-
-			///////// Draw the object
-			//////// 1. First add projection to the object
-			//////projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(testObject.GetPoints()));
-			//////// 2. Send the points + lines to the renderManager
-			//////RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), testObject.GetLines());
-
-			////////RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject._lines);
 
 			RenderManager::GetInstance().Refresh();
 
