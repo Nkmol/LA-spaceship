@@ -14,7 +14,6 @@ private:
 	double _totalAmountPulsed = 0;
 public:
 	using Object::Object;
-	PulsingObject(double x, double y, double z);
 
 	void Update();
 	void Draw(Camera& camera);

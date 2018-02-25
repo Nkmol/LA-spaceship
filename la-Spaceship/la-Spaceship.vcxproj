@@ -138,24 +138,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="MatrixFactory.cpp" />
     <ClCompile Include="MatrixHelper.cpp" />
+    <ClCompile Include="MoveableObject.cpp" />
     <ClCompile Include="PulsingObject.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Spaceship.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixFactory.h" />
     <ClInclude Include="MatrixHelper.h" />
+    <ClInclude Include="Models.h" />
+    <ClInclude Include="MoveableObject.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PulsingObject.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Vector2d.h" />

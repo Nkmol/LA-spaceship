@@ -11,6 +11,8 @@
 #include "Object.h"
 #include "Camera.h"
 #include "PulsingObject.h"
+#include "MoveableObject.h"
+#include "Models.h"
 #include "Spaceship.h"
 
 #undef main
@@ -21,21 +23,10 @@ int main(int argc, char *argv[]) {
 	MatrixHelper helper;
 
 	// init through a initalizer_list
-	Matrix<double, 4, 8> cube(
-        {
 
-			/*x*/{ -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5 },
-			/*y*/{ -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5 },
-			/*z*/{ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 },
-			/*w*/{ 1, 1, 1, 1, 1, 1, 1, 1}
-        }
-    );
 
-	cube = factory.CreateScaleMatrix(50, 50, 50) * cube;
-
-	PulsingObject testObject{ 400,400,400 };
-	testObject.SetTransform(cube);
-	testObject.SetLines({
+	PulsingObject pulsingObject({100, 100, 100}, {50, 50, 50}, Model::Cube);
+	pulsingObject.SetLines({
 		{0, 1},
 		{1, 2},
 		{2, 3},
@@ -51,6 +42,8 @@ int main(int argc, char *argv[]) {
 		{7, 0},
 	});
 
+	//MoveableObject bullet({100, 100, 100}, {5, 5, 15}, Model::Cube);
+	//bullet.SetLines(pulsingObject.GetLines());
 
 	// Create spaceship
 	Spaceship spaceship{ 200, 200, 200 };
@@ -86,6 +79,9 @@ int main(int argc, char *argv[]) {
 			{1}
 		}
 	};
+
+	auto cube = Model::Cube;
+	auto projectedMatrix = camera.ProjectMatrix(cube);
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -163,32 +159,48 @@ int main(int argc, char *argv[]) {
 					std::cout << "Camera Moving right" << std::endl;
 					camera.SetEye(factory.CreateTranslationMatrix(1, 0, 0) * camera.GetEye());
 				}
+
+				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_SHOOT))
+				{
+ 					spaceship.Shoot();
+				}
+
+				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_ACCELERATE))
+				{
+					spaceship.Accelerate(1);
+				}
 			}
 
-			const auto projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<4>(testObject.GetPoints()));
-
 			RenderManager::GetInstance().Clear();
-			testObject.Update();
 
+			pulsingObject.Update();
+			projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(pulsingObject.GetPoints()));
+			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), pulsingObject.GetLines());
+			
+			//bullet.Update();
+		/*	projectedMatrix = camera.ProjectMatrix(Object::ToMatrix<8>(bullet.GetPoints()));
+			RenderManager::GetInstance().DrawPoints(Object::ToPoints(projectedMatrix), bullet.GetLines());
 			Matrix<double, 4, 2> rotate_test
 			{
 				{90, 90},
 				{10, 90},
 				{70, 70},
 				{1 , 1 }
-			};
+			};*/
 
-			Object rotate_line;
+			/*Object rotate_line;
 
 			rotate_line.SetTransform(rotate_test);
 
 			rotate_line.SetLines({ { 0, 1 } });
 
-			const auto projected_rotate_line = camera.ProjectMatrix(Object::ToMatrix<2>(rotate_line.GetPoints()));
+			const auto projected_rotate_line = camera.ProjectMatrix(Object::ToMatrix<2>(rotate_line.GetPoints()));*/
 
 
+			spaceship.Update();
 			spaceship.Draw(camera);
-			testObject.Draw(camera);
+			pulsingObject.Update();
+			pulsingObject.Draw(camera);
 
 			//RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_rotate_line), rotate_line.GetLines());
 			//RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject.GetLines());

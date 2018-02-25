@@ -1,5 +1,6 @@
 #include "Spaceship.h"
 #include "MatrixHelper.h"
+#include "Models.h"
 
 Spaceship::Spaceship(double x, double y, double z)
 	: local_origin_point({ { x },{ y },{ z },{ 1 } })
@@ -7,9 +8,58 @@ Spaceship::Spaceship(double x, double y, double z)
 	Init();
 }
 
+void Spaceship::Shoot()
+{
+	MatrixFactory factory;
+	MatrixHelper helper;
+	MatrixHelper::Vector3D target{ head.GetCenterPoint() };
+
+	const auto direction = helper.Normalize(target);
+	Vector3d<double> bullet_direction{ direction.GetVal(0, 0), direction.GetVal(1, 0), direction.GetVal(2, 0) };
+	
+	const auto translate = factory.CreateTranslationMatrix(
+		local_origin_point.GetVal(0, 0),
+		local_origin_point.GetVal(1, 0),
+		local_origin_point.GetVal(2, 0)
+	);
+
+	
+	const auto spawn = (translate * Object::ToMatrix<5>(head.GetPoints())).GetCol(0);
+
+
+	Bullet bullet{ spawn[0], spawn[1], spawn[2], bullet_direction, GetVelocity() };
+
+	bullet.SetTransform(Model::Cube);
+
+	bullet.SetLines({
+		{ 0, 1 },
+		{ 1, 2 },
+		{ 2, 3 },
+		{ 3, 0 },
+
+		{ 1, 4 },
+		{ 4, 5 },
+		{ 5, 2 },
+		{ 5, 6 },
+		{ 6, 7 },
+		{ 6, 3 },
+		{ 7, 4 },
+		{ 7, 0 },
+	});
+
+
+
+	bullets.push_back(bullet);
+}
+
 void Spaceship::Draw(Camera& camera)
 {	
 	MatrixFactory factory;
+
+	for (Bullet& bullet : bullets)
+	{
+		bullet.Draw(camera);
+	}
 
 	// Transform
 	const auto translate = factory.CreateTranslationMatrix(
@@ -84,6 +134,28 @@ void Spaceship::Rotate(double rotate_percentage, Axis axis)
 
 	right_wing.SetTransform(transformation * right_wing_matrix);
 }
+
+void Spaceship::Accelerate(double amount)
+{
+	SetVelocity(GetVelocity() + amount);
+}
+
+void Spaceship::Update()
+{
+	for (Bullet& bullet : bullets)
+	{
+		bullet.Update();
+	}
+
+	MatrixHelper helper;
+	MatrixHelper::Vector3D target{ head.GetCenterPoint() };
+
+	const auto direction = helper.Normalize(target);
+
+	SetDirection({ direction.GetVal(0, 0), direction.GetVal(1, 0), direction.GetVal(2, 0) });
+	local_origin_point = GetMovementTransform() * local_origin_point;
+}
+
 
 void Spaceship::Init()
 {
