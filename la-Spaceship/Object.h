@@ -4,6 +4,7 @@
 #include "Vector3d.h"
 #include "RenderManager.h"
 #include "MatrixFactory.h"
+#include <iostream>
 
 class Object
 {
@@ -95,13 +96,15 @@ public:
 		return matrix;
 	}
 
+	int count = 0;
+
 	void Scale(const Matrix<double, 4, 4>& scalar)
 	{
 		MatrixFactory factory;
 		const auto center = GetCenterPoint();
 
 		// TODO hardcoded size
-		auto matrix = ToMatrix<4>(GetPoints());
+		auto matrix = ToMatrix<8>(GetPoints());
 
 		// Translate center to origin
 		const auto translateToOrigin = factory.CreateTranslationMatrix(
@@ -118,6 +121,7 @@ public:
 
 		matrix = translateToOrigin * matrix;
 		matrix = scalar * matrix;
+		//std::cout << std::to_string(count) << " - " << (oldMatrix).GetVal(0, 0) << " - " << (matrix - oldMatrix).GetVal(0, 0) << std::endl;
 		matrix = minTranslateToOrigin * matrix;
 
 		SetTransform(matrix);

@@ -5,8 +5,9 @@ class PulsingObject :
 {
 private:
 	bool _grow = true;
-	double _pulseAmount = 0.1;
-	double _amountPulse = 0;
+	// Amount of pulsation per frame/update
+	const double _pulseAmount = 0.05;
+	double _totalAmountPulsed = 0;
 public:
 	using Object::Object;
 
