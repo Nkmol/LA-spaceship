@@ -113,41 +113,6 @@ namespace laSpaceshipTest
 			Assert().AreEqual(scaleMatrix.GetVal(3, 3), 1.0);
 		}
 
-		TEST_METHOD(rotation_create_90_X_negative)
-		{
-			// Arrange
-			MatrixFactory factory;
-			const double inputA = 90;
-			const Axis inputB = X;
-			const auto inputC = false;
-
-			// Act
-			const auto scaleMatrix = factory.CreateRotationMatrix(inputA, inputB, inputC);
-
-			// Assert
-			Assert().AreEqual(static_cast<int>(scaleMatrix.GetCol(0).size()), 4);
-			Assert().AreEqual(static_cast<int>(scaleMatrix.GetRow(0).size()), 4);
-
-			Assert().AreEqual(scaleMatrix.GetVal(0, 0), 1.0);
-			Assert().AreEqual(scaleMatrix.GetVal(0, 1), 0.0);
-			Assert().AreEqual(scaleMatrix.GetVal(0, 2), 0.0);
-			Assert().AreEqual(scaleMatrix.GetVal(0, 3), 0.0);
-
-			Assert().AreEqual(scaleMatrix.GetVal(1, 0), 0.0);
-			Assert().AreEqual(scaleMatrix.GetVal(1, 1), cos(inputA));
-			Assert().AreEqual(scaleMatrix.GetVal(1, 2), sin(inputA));
-			Assert().AreEqual(scaleMatrix.GetVal(1, 3), 0.0);
-
-			Assert().AreEqual(scaleMatrix.GetVal(2, 0), 0.0);
-			Assert().AreEqual(scaleMatrix.GetVal(2, 1), -sin(inputA));
-			Assert().AreEqual(scaleMatrix.GetVal(2, 2), cos(inputA));
-			Assert().AreEqual(scaleMatrix.GetVal(2, 3), 0.0);
-
-			Assert().AreEqual(scaleMatrix.GetVal(3, 0), 0.0);
-			Assert().AreEqual(scaleMatrix.GetVal(3, 1), 0.0);
-			Assert().AreEqual(scaleMatrix.GetVal(3, 2), 0.0);
-			Assert().AreEqual(scaleMatrix.GetVal(3, 3), 1.0);
-		}
 
 		TEST_METHOD(rotation_create_90_Y_positive)
 		{

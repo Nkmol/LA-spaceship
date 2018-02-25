@@ -26,8 +26,8 @@ void Spaceship::Shoot()
 	const auto spawn = (translate * Object::ToMatrix<5>(head.GetPoints())).GetCol(0);
 
 	Bullet bullet{ spawn[0], spawn[1], spawn[2], bullet_direction, GetVelocity() };
-
-	bullet.SetTransform(Models::Cube::matrix);
+	const auto scale_matrix = factory.CreateScaleMatrix(10, 10, 10);
+	bullet.SetTransform(scale_matrix * Models::Cube::matrix);
 
 	bullet.SetLines(Models::Cube::lines);
 
