@@ -65,30 +65,6 @@ int main(int argc, char *argv[]) {
 	}
 	);
 
-
-	// Camera
-
-	//Camera camera { 
-	//	 {
- //           {0},
- //           {250},
- //           {0},
- //           {1}
- //       },
- //       {
- //           {250},
- //           {0},
- //           {250},
- //           {1}
- //       },
-	//	{
-	//		{0},
-	//		{1},
-	//		{0},
-	//		{1}
-	//	}
-	//};
-
 	// Ship camera settings
 		Camera camera { 
 		 {
@@ -138,22 +114,32 @@ int main(int argc, char *argv[]) {
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_MOVE))
 				{
 					std::cout << "Moving up" << std::endl;
-					spaceship.Rotate(-10, X);
+					spaceship.Rotate(10, Z);
 				}
 				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_DOWN_MOVE))
 				{
 					std::cout << "Moving down" << std::endl;
-					spaceship.Rotate(10, X);
+					spaceship.Rotate(-10, Z);
 				}
 				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_LEFT_MOVE))
 				{
 					std::cout << "Moving left" << std::endl;
-					spaceship.Rotate(-10, Y);
+					spaceship.Rotate(10, X);
 				}
 				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_RIGHT_MOVE))
 				{
 					std::cout << "Moving right" << std::endl;
+					spaceship.Rotate(-10, X);
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_ROTATE_LEFT))
+				{
+					std::cout << "Rotate left" << std::endl;
 					spaceship.Rotate(10, Y);
+				}
+				else if (inputHandler.is_key_pressed(InputHandler::keys::KEY_ROTATE_RIGHT))
+				{
+					std::cout << "Rotate right" << std::endl;
+					spaceship.Rotate(-10, Y);
 				}
 
 				if (inputHandler.is_key_pressed(InputHandler::keys::KEY_UP_CAMERA_MOVE))

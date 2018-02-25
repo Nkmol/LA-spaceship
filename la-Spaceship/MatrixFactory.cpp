@@ -1,5 +1,6 @@
 #include "MatrixFactory.h"
 #include <SDL_stdinc.h>
+#include <iostream>
 
 Matrix<double, 4, 4> MatrixFactory::CreateScaleMatrix(double x_scale, double y_scale, double z_scale) const
 {
@@ -28,6 +29,7 @@ Matrix<double, 4, 4> MatrixFactory::CreateRotationMatrix(double rad, const Axis 
 {
 	const bool sin_multiplier = (positive ? 1 : -1);
 
+	std::cout << sin_multiplier << std::endl;
 	if (axis == X)
 	{
 		return
