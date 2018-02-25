@@ -1,29 +1,33 @@
 #include "MoveableObject.h"
 #include "MatrixHelper.h"
 
-void MoveableObject::Update()
+Matrix<double, 4, 4> MoveableObject::GetMovementTransform()
 {
 	MatrixFactory factory;
 	MatrixHelper helper;
-	// TODO hardcoded size
-	const auto matrix = ToMatrix<8>(GetPoints());
 
-	SetTransform(
+	return
 		factory.CreateTranslationMatrix(
-			_direction.GetX() * _velocity, 
-			_direction.GetY() * _velocity, 
-			_direction.GetZ() * _velocity)
-		* matrix);
+			_direction.GetX() * _velocity,
+			_direction.GetY() * _velocity,
+			_direction.GetZ() * _velocity);
 }
 
-void MoveableObject::SetDirection(const Vector3d<unsigned>& direction)
+void MoveableObject::SetDirection(const Vector3d<double>& direction)
 {
 	_direction = direction;
 }
 
 void MoveableObject::SetVelocity(const double value)
 {
-	_velocity = value;
+	if (value < 0)
+	{
+		_velocity = 0;
+	}
+	else
+	{
+		_velocity = value;
+	}
 }
 
 double MoveableObject::GetVelocity() const

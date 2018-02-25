@@ -1,20 +1,17 @@
 #pragma once 
 #include "Object.h" 
-class MoveableObject : 
-  public Object 
+class MoveableObject
 { 
 private: 
-	using Object::Object; 
- 
 	double _velocity = 1.1; 
-	Vector3d<unsigned> _direction = {
+	Vector3d<double> _direction = {
 		0,
 		0,
-		1
+		0
 	};
 public: 
-	void Update();
-	void SetDirection(const Vector3d<unsigned>& direction);
+	Matrix<double, 4, 4> GetMovementTransform();
+	void SetDirection(const Vector3d<double>& direction);
 	void SetVelocity(double value);
 	double GetVelocity() const;
 }; 
