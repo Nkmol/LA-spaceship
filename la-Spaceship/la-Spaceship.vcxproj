@@ -145,6 +145,7 @@
     <ClCompile Include="MoveableObject.cpp" />
     <ClCompile Include="PulsingObject.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Spaceship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3d.h" />
   </ItemGroup>
