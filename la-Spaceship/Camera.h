@@ -57,7 +57,7 @@ Matrix<double, 4, cols> Camera::ProjectMatrix(Matrix<double, 4, cols> obj)
 
 	// Projectionmatrix
 	const auto near = 1; // Afstand van het camera-object tot het begin van je camerabeeld.
-	const auto far = 400; // Het limiet van je camerabeeld.
+	const auto far = 1000; // Het limiet van je camerabeeld.
 	const auto fieldOfView = factory.AngleToRadian(90); // De hoek van het camerabeeld (meestal standaard 90 graden)
 	const double scale = near * tan(fieldOfView * 0.5); // TODO(Sander Mol): check op afronding naar 0??
 	const double helpCalculationA = -far / (far - near);

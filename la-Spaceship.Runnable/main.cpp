@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
 	cube = factory.CreateScaleMatrix(50, 50, 50) * cube;
 
-	PulsingObject testObject{ 50,50,50 };
+	PulsingObject testObject{ 400,400,400 };
 	testObject.SetTransform(cube);
 	testObject.SetLines({
 		{0, 1},
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 
 
 	// Create spaceship
-	Spaceship spaceship{ 0,0,0 };
+	Spaceship spaceship{ 200, 200, 200 };
 
 
 	Matrix<double, 4, 6> source_edges(
@@ -92,15 +92,15 @@ int main(int argc, char *argv[]) {
 	// Ship camera settings
 		Camera camera { 
 		 {
-            {100},
-            {150},
-            {250},
+            {0},
+            {450},
+            {0},
             {1}
         },
         {
-            {100},
+            {300},
             {0},
-            {0},
+            {300},
             {1}
         },
 		{
@@ -201,11 +201,11 @@ int main(int argc, char *argv[]) {
 			const auto projected_rotate_line = camera.ProjectMatrix(Object::ToMatrix<2>(rotate_line.GetPoints()));
 
 
-			//spaceship.Draw(camera);
+			spaceship.Draw(camera);
 			testObject.Draw(camera);
 
 			//RenderManager::GetInstance().DrawPoints(Object::ToPoints(projected_rotate_line), rotate_line.GetLines());
-			RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject.GetLines());
+			//RenderManager::GetInstance().DrawPoints(testObject.GetPoints(), testObject.GetLines());
 
 			///////// Draw the object
 			//////// 1. First add projection to the object
