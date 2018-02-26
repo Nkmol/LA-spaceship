@@ -166,6 +166,50 @@ namespace laSpaceshipTest
 			Assert().AreEqual(result.GetVal(2, 0), 0.0);
 			Assert().AreEqual(result.GetVal(3, 0), 1.0);
 		}
+
+		TEST_METHOD(length_a_to_3)
+		{
+			// Arrange
+			MatrixHelper helper;
+			const Matrix<double, 4, 1> vec1{
+				/*x*/{3},
+				/*y*/{3},
+				/*z*/{3},
+
+				/*w*/{1}
+			};
+			
+			// Act
+			const auto result = helper.Length(vec1);
+
+			// Assert
+			Assert().AreEqual(result, sqrt(27));
+		}
+
+		TEST_METHOD(normalize_a)
+		{
+			// Arrange
+			MatrixHelper helper;
+			const Matrix<double, 4, 1> vec1{
+				/*x*/{3},
+				/*y*/{3},
+				/*z*/{3},
+
+				/*w*/{1}
+			};
+			
+			// Act
+			const auto result = helper.Normalize(vec1);
+
+			// Assert
+			Assert().AreEqual(static_cast<int>(result.GetCol(0).size()), 4);
+			Assert().AreEqual(static_cast<int>(result.GetRow(0).size()), 1);
+
+			Assert().AreEqual(result.GetVal(0, 0), 3/(sqrt(27)));
+			Assert().AreEqual(result.GetVal(1, 0), 3/(sqrt(27)));
+			Assert().AreEqual(result.GetVal(2, 0), 3/(sqrt(27)));
+			Assert().AreEqual(result.GetVal(3, 0), 0.0);
+		}
 	private:
 		static Matrix<double, 4, 4> CreateTestMatrix()
 		{
