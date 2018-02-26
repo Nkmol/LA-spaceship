@@ -92,42 +92,80 @@ namespace laSpaceshipTest
 			// Act
 			const auto result = helper.Dot(vec1, vec2);
 
+			auto a = vec1.Transpose() * vec2;
+			//const auto result2 = (vec1.Transpose() * vec2).GetVal(0, 0) - 1; // Minus W
+
 			// Assert
 			Assert().AreEqual(result, 12.0);
+			//Assert().AreEqual(result2, 12.0);
 		}
 
-		//TEST_METHOD(cross_5x1_7x1_should_give_2x1_differnce)
-		//{
-		//	// Arrange
-		//	MatrixHelper helper;
-		//	const Matrix<double, 4, 1> vec1{
-		//		/*x*/{5},
-		//		/*y*/{5},
-		//		/*z*/{5},
+		TEST_METHOD(cross_a_b_should_give_2x1_differnce)
+		{
+			// Arrange
+			MatrixHelper helper;
+			const Matrix<double, 4, 1> vec1{
+				/*x*/{-1},
+				/*y*/{2},
+				/*z*/{1},
 
-		//		/*w*/{1}
-		//	};
-		//	
-		//	const Matrix<double, 4, 1> vec2{
-		//		/*x*/{7},
-		//		/*y*/{7},
-		//		/*z*/{7},
+				/*w*/{1}
+			};
+			
+			const Matrix<double, 4, 1> vec2{
+				/*x*/{-1},
+				/*y*/{4},
+				/*z*/{0},
 
-		//		/*w*/{1}
-		//	};
+				/*w*/{1}
+			};
 
-		//	// Act
-		//	const auto result = helper.Cross(vec2, vec1);
+			// Act
+			const auto result = helper.Cross(vec1, vec2);
 
-		//	// Assert
-		//	Assert().AreEqual(static_cast<int>(result.GetCol(0).size()), 4);
-		//	Assert().AreEqual(static_cast<int>(result.GetRow(0).size()), 1);
+			// Assert
+			Assert().AreEqual(static_cast<int>(result.GetCol(0).size()), 4);
+			Assert().AreEqual(static_cast<int>(result.GetRow(0).size()), 1);
 
-		//	Assert().AreEqual(result.GetVal(0, 0), 2.0);
-		//	Assert().AreEqual(result.GetVal(1, 0), 2.0);
-		//	Assert().AreEqual(result.GetVal(2, 0), 2.0);
-		//	Assert().AreEqual(result.GetVal(3, 0), 1.0);
-		//}
+			Assert().AreEqual(result.GetVal(0, 0), -4.0);
+			Assert().AreEqual(result.GetVal(1, 0), -1.0);
+			Assert().AreEqual(result.GetVal(2, 0), -2.0);
+			Assert().AreEqual(result.GetVal(3, 0), 1.0);
+		}
+
+		// dependent
+		TEST_METHOD(cross_a_b_should_give_zero_vector)
+		{
+			// Arrange
+			MatrixHelper helper;
+			const Matrix<double, 4, 1> vec1{
+				/*x*/{3},
+				/*y*/{1},
+				/*z*/{1},
+
+				/*w*/{1}
+			};
+			
+			const Matrix<double, 4, 1> vec2{
+				/*x*/{6},
+				/*y*/{2},
+				/*z*/{2},
+
+				/*w*/{1}
+			};
+
+			// Act
+			const auto result = helper.Cross(vec1, vec2);
+
+			// Assert
+			Assert().AreEqual(static_cast<int>(result.GetCol(0).size()), 4);
+			Assert().AreEqual(static_cast<int>(result.GetRow(0).size()), 1);
+
+			Assert().AreEqual(result.GetVal(0, 0), 0.0);
+			Assert().AreEqual(result.GetVal(1, 0), 0.0);
+			Assert().AreEqual(result.GetVal(2, 0), 0.0);
+			Assert().AreEqual(result.GetVal(3, 0), 1.0);
+		}
 	private:
 		static Matrix<double, 4, 4> CreateTestMatrix()
 		{

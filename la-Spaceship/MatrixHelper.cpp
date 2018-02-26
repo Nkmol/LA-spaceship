@@ -1,5 +1,6 @@
 #include "MatrixHelper.h"
 
+// TODO this can actually be done by: "one.Transpone() * two"
 double MatrixHelper::Dot(const Vector3D& one, const Vector3D& two) const
 {
 	double result{};
